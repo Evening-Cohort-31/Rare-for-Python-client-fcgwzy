@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react"
-import { deletePost, getPostsByUserId } from "../../managers/PostManager"
+import { getPostsByUserId } from "../../managers/PostManager"
 import { useNavigate } from "react-router-dom"
 // import "./MyPosts.css"
 
-export const MyPosts = ({ setToken }) => {
+export const MyPosts = ({ token }) => {
 
     const [userPosts, setUserPosts] = useState([])
     // const [loading, setLoading] = useState(true) 
@@ -11,7 +11,7 @@ export const MyPosts = ({ setToken }) => {
 
     const fetchUserPosts = () => {
         // setLoading(true)
-        getPostsByUserId(setToken.id)
+        getPostsByUserId(token)
         .then(postsArray => {
             setUserPosts(postsArray)
             // setLoading(false)
@@ -19,19 +19,15 @@ export const MyPosts = ({ setToken }) => {
     }
 
     useEffect(() => {
-        if (setToken && setToken.id) {
+        if (token) {
             fetchUserPosts()
         }
-    }, [setToken])
+    }, [token])
 
-    const handleDelete = (postId) => {
-        deletePost(postId).then(() => {
-            setUserPosts(prevPosts => 
-                prevPosts.filter(post => post.id !== postId)
-            )
-        })
-    }
-// if (loading && (!setToken || !setToken.id)) {
+
+console.log("token:", token)
+
+// if (loading && (!token || !token.id)) {
 //          return <p>Authenticating user...</p>
 //     }
     
@@ -57,17 +53,11 @@ export const MyPosts = ({ setToken }) => {
                                 onClick={() => navigate(`/posts/${post.id}`)}
                             >
                                 {post.title}
-                                {post.author}
-                                {post.category}
+                                {post.username}
+                                {post.category_id}
                             </span>
 
-                            {/* Delete Button (Requirement Met) */}
-                            <button 
-                                className="delete-btn"
-                                onClick={() => handleDelete(post.id)}
-                            >
-                                Delete
-                            </button>
+
                         </div>
                     ))}
                 </div>
