@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { ApplicationViews } from "./views/ApplicationViews"
 import { NavBar } from "./components/nav/NavBar"
+import { MyPosts } from "./components/posts/MyPosts"
 
 
 export const Rare = () => {
