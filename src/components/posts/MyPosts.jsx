@@ -53,8 +53,8 @@ console.log("token:", token)
                                 onClick={() => navigate(`/posts/${post.id}`)}
                             >
                                 {post.title}
-                                {post.username}
-                                {post.category_id}
+                                {post.author}
+                                {post.category}
                             </span>
 
 
