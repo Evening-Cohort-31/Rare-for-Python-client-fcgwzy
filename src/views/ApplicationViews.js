@@ -7,6 +7,8 @@ import { CategoryList } from "../components/catergories/categoriesList"
 import { CategoryForm } from "../components/catergories/newCategoryForm"
 
 
+import { PostDetails } from "../components/posts/Posts"
+ 
 export const ApplicationViews = ({ token, setToken }) => {
   return <>
     <Routes>
@@ -17,6 +19,8 @@ export const ApplicationViews = ({ token, setToken }) => {
         <Route path="/categories" element={<CategoryList />} />
         <Route path="/newcategory" element={<CategoryForm />} />
          
+        <Route path="/posts/:post_id" element={<PostDetails token={token} />} />
+        
       </Route>
     </Routes>
   </>
