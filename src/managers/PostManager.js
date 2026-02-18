@@ -4,7 +4,7 @@ export const getAllPosts = () => {
 }
 
 export const getPostById = (id) => {
-  return fetch(`http://localhost:8088/posts/${id}?_expand=author&_expand=user&_embed=category`).then((res) => 
+  return fetch(`http://localhost:8088/posts/${id}`).then((res) => 
   res.json()
 )
 }
@@ -22,7 +22,7 @@ export const createPost = (postObject) => {
 }
 
 export const getPostsByUserId = (user_id) => {
-    return fetch(`http://localhost:8088/posts/${user_id}`)
+    return fetch(`http://localhost:8088/posts?user_id=${user_id}`)
         .then(res => res.json());
 }
 

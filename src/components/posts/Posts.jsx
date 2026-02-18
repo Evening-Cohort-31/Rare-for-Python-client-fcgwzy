@@ -5,13 +5,13 @@ import { getPostById } from "../../managers/PostManager"
 
 export const PostDetails = () => {
     const [post, setPost] = useState({})
-    const { postId } = useParams()
+    const { post_id } = useParams()
 
 useEffect (() => {
-    getPostById(postId).then((data) => {
+    getPostById(post_id).then((data) => {
         setPost(data)
     })
-}, [postId])
+}, [post_id])
 
 return (
  <section className="post-details">
