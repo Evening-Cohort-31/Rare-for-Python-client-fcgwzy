@@ -1,20 +1,38 @@
+import { useEffect, useState } from "react"
+import { useParams } from "react-router-dom"
+import { getPostById } from "../../managers/PostManager"
 // import "./Post.css"
 
-export const Post = ({ post }) => {
-    return (
-         <div className="post">
-                    <div>
-                        <div className="post-info">Title</div>
-                        <div>{post.title}</div>
-                    </div>
-                    <div>
-                        <div className="post-info">Author</div>
-                        <div>{post.author?.name}</div>
-                    </div>
-                    <div>
-                        <div className="post-info">Category</div>
-                        <div>{post.category?.length}</div>
-                    </div>
-                </div>
-    )
+export const PostDetails = () => {
+    const [post, setPost] = useState({})
+    const { post_id } = useParams()
+
+useEffect (() => {
+    getPostById(post_id).then((data) => {
+        setPost(data)
+    })
+}, [post_id])
+
+return (
+ <section className="post-details">
+    <header className="post-header">{post.title}</header>
+        <div>
+        <span className="post-info"></span>
+        {post.image_url?.name}
+    </div>
+    <div>
+        <div>
+        <span className="post-info"></span>
+        {post.content}
+    </div>
+        <div>
+        <span className="post-info">Date : </span>
+        {post.publication_date}
+        <span className="post-info">Author : </span>
+        {post.author}
+    </div>
+    </div>
+        
+</section>
+)
 }

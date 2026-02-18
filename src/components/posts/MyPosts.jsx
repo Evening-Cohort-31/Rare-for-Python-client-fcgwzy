@@ -24,9 +24,6 @@ export const MyPosts = ({ token }) => {
         }
     }, [token])
 
-
-console.log("token:", token)
-
 // if (loading && (!token || !token.id)) {
 //          return <p>Authenticating user...</p>
 //     }
@@ -45,12 +42,12 @@ console.log("token:", token)
             ) : (
                 <div className="posts-list">
                     {userPosts.map(post => (
-                        <div key={post.id} className="post-item">
+                        <div key={post.post_id} className="post-item">
                             
                             {/* Title (Clickable link to details - Requirement Met) */}
                             <span 
                                 className="post-title"
-                                onClick={() => navigate(`/posts/${post.id}`)}
+                                onClick={() => navigate(`/posts/${post.post_id}`)}
                             >
                                 {post.title}
                                 {post.author}
