@@ -5,8 +5,8 @@ import { Authorized } from "./Authorized"
 import { MyPosts } from "../components/posts/MyPosts"
 import { CategoryList } from "../components/catergories/categoriesList"
 import { CategoryForm } from "../components/catergories/newCategoryForm"
-
-
+import { TagList } from "../components/tag/TagList"
+import { TagForm } from "../components/tag/newTagForm"
 import { PostDetails } from "../components/posts/Posts"
  
 export const ApplicationViews = ({ token, setToken }) => {
@@ -18,9 +18,9 @@ export const ApplicationViews = ({ token, setToken }) => {
         <Route path="/myposts" element={<MyPosts token={token} />} />
         <Route path="/categories" element={<CategoryList />} />
         <Route path="/newcategory" element={<CategoryForm />} />
-         
+        <Route path="/tags" element={<TagList />} />
+        <Route path="/newtag" element={<TagForm />} />
         <Route path="/posts/:post_id" element={<PostDetails token={token} />} />
-        
       </Route>
     </Routes>
   </>
