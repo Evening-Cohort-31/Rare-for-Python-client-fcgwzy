@@ -7,11 +7,11 @@ export const CommentForm = () => {
     const { post_id } = useParams();
 
     const localUser = localStorage.getItem("auth_token");
-    const userObject = JSON.parse(localUser)
+    const userId = JSON.parse(localUser)
 
     const [newComment, setNewComment] = useState({
         post_id: parseInt(post_id),
-        author_id: userObject.id,
+        author_id: parseInt(userId),
         publication_date: new Date().toISOString().split('T')[0],
         content: ""
     })
@@ -33,7 +33,13 @@ export const CommentForm = () => {
         return;
     }
 
-    createComment(newComment)
+    createComment(newComment).then(() => {
+        setNewComment((prevState) => ({
+            ...prevState,
+            content: ""
+        }));
+        alert("Comment Added!")
+    })
   }
 
 
