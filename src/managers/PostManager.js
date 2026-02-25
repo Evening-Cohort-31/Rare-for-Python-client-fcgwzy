@@ -31,3 +31,15 @@ export const deletePost = (postId) => {
         method: "DELETE" 
     });
 };
+
+export const updatePostTags = (postId, tagIds) => {
+    return fetch (`http://localhost:8088/posts/${postId}`, {
+        method: "PUT",
+        headers: {
+            "Content-type": "application/json"
+        },
+        body: JSON.stringify({
+            tag_ids: tagIds
+        })
+    })
+}
