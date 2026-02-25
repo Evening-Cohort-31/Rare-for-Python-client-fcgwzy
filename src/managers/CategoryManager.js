@@ -14,3 +14,9 @@ export const createCategory = (categoryObject) => {
     })
     .then((res) => res.json())    
 }
+
+export const deleteCategory = (categoryId) => {
+    return fetch(`http://localhost:8088/categories/${categoryId}`, {
+        method: "DELETE" 
+    });
+};

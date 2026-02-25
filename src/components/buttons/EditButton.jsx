@@ -5,9 +5,9 @@ export const EditButton = ({onClick}) => {
 
   return (
     <>
-        <button className="cube-btn"
+        <button className="edit-btn"
         onClick={onClick}
-        disabled={disabled}>Settings Icon</button>
+        >Edit</button>
     </>
   );
 };
