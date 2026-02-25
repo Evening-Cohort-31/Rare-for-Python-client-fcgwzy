@@ -2,13 +2,11 @@
 
 
 // All other imports:
-import { useNavigate } from "react-router-dom"
 import { useEffect, useState } from "react"
 import { getAllPosts } from "../../managers/PostManager";
 
 export const PostList = () => {
     const [posts, setPosts] = useState([])
-    const navigate = useNavigate();
 
     useEffect(() => {
         getAllPosts().then((postData) => {
