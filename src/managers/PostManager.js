@@ -1,5 +1,5 @@
 export const getAllPosts = () => {
-    return fetch(`http://localhost:8088/posts?_expand=author&_embed=category`).then ((res) =>
+    return fetch(`http://localhost:8088/posts`).then ((res) =>
     res.json())
 }
 
@@ -31,3 +31,15 @@ export const deletePost = (postId) => {
         method: "DELETE" 
     });
 };
+
+export const updatePostTags = (postId, tagIds) => {
+    return fetch (`http://localhost:8088/posts/${postId}`, {
+        method: "PUT",
+        headers: {
+            "Content-type": "application/json"
+        },
+        body: JSON.stringify({
+            tag_ids: tagIds
+        })
+    })
+}
