@@ -5,7 +5,7 @@ export const getAllCategories = () => {
 
 export const createCategory = (categoryObject) => {
     return fetch("http://localhost:8088/categories", {
-        method: "POST",
+        method: "CATEGORY",
         headers: {
             "Content-Type": "application/json",
             "Accept": "application/json"
@@ -20,3 +20,19 @@ export const deleteCategory = (categoryId) => {
         method: "DELETE" 
     });
 };
+
+export const updateCategory = (categoryObject) => {
+    return fetch(`http://localhost:8088/categories/${categoryObject.id}`, {
+        method: "PUT",
+        headers: {
+        "Content-Type": "application/json",
+    },
+    body: JSON.stringify(categoryObject),
+    });
+};
+
+export const getCategoryById = (id) => {
+  return fetch(`http://localhost:8088/categories/${id}`).then((res) => 
+  res.json()
+)
+}

@@ -51,9 +51,9 @@ export const CategoryList = () => {
                             
                             categories.map(category => {
                                 return <section key={`category${category.id}`} className="category">
-                                    <EditButton />
-                                    <DeleteButton onClick={() => handleDelete(category.id, category.label)} />
                                     <div className="category-label">{category.label}</div>
+                                    <EditButton onClick={() => navigate(`/categories/${category.id}/edit`)} />
+                                    <DeleteButton onClick={() => handleDelete(category.id, category.label)} />
                                 </section>
                             })
                         }
