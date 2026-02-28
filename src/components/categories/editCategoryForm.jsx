@@ -40,7 +40,7 @@ export const EditCategoryForm = () => {
 
       return (
     <form className="category-edit-form" onSubmit={handleSave}>
-        <h3>Edit Category Name Here: </h3>
+        <h3>Edit {originalCategory} Here: </h3>
       <input
         className="category-input"
         type="text"
