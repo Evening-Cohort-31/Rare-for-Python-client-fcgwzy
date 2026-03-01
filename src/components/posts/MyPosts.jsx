@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { getPostsByUserId } from "../../managers/PostManager"
 import { useNavigate } from "react-router-dom"
+import { EditButton } from "../buttons/editButton"
 // import "./MyPosts.css"
 
 export const MyPosts = ({ token }) => {
@@ -53,7 +54,7 @@ export const MyPosts = ({ token }) => {
                                 {post.author}
                                 {post.category}
                             </span>
-
+                           
 
                         </div>
                     ))}
