@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom"
-import { getAllTags } from "../../managers/tagManager";
+import { deleteTag, getAllTags } from "../../managers/tagManager";
 
 export const TagList = () => {
     const navigate = useNavigate();
     const [tags, setTags] = useState([]);
+
+    const isAdmin = localStorage.getItem("is_admin") === "1"
 
         useEffect(() => {
             getAllTags().then((tagData) => {
@@ -14,6 +16,16 @@ export const TagList = () => {
 
     const tagForm = () => {
         navigate("/newtag")
+    }
+
+    const handleDelete = (tagId) => {
+        const confirmDelete = window.confirm("Are you sure you want to delete this tag?")
+
+        if (confirmDelete) {
+            deleteTag(tagId).then(() => {
+                getAllTags().then(setTags)
+            })
+        }
     }
     
     return (
@@ -25,11 +37,15 @@ export const TagList = () => {
                             tags.map(tag => {
                                 return <section key={`tag${tag.id}`} className="tag">
                                     <div className="tag-label">{tag.label}</div>
+                                    {isAdmin && (
+                                        <button onClick={() => handleDelete(tag.id)}>Delete</button>
+                                    )}
                                 </section>
                             })
                         }
                 </div>
             <button onClick={tagForm}>Create Tag</button>
+            
         </div>
     )
 }

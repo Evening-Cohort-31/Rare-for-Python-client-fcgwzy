@@ -31,6 +31,7 @@ export const Register = ({setToken}) => {
         .then(res => {
           if ("valid" in res && res.valid) {
             setToken(res.token)
+            localStorage.setItem("is_admin", res.is_admin)
             navigate("/")
           }
         })
