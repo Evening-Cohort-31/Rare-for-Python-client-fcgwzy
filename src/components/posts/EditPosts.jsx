@@ -54,23 +54,28 @@ if (!post_id || post_id === "undefined") return;
     });
   };
 
-  const editExistingPost = async (e) => {
+ const editExistingPost = async (e) => {
     e.preventDefault();
 
+    // 1. Validation
     if (!postToEdit.title?.trim() || !postToEdit.content?.trim()) {
       alert("Post must have a title and content.");
       return;
     }
 
-    const postData = {
+    // 2. Create the final object using the ID from useParams
+    const finalPostData = {
       ...postToEdit,
-      id: parseInt(post_id),
+      id: parseInt(post_id) // This turns '2' into 2, or 'undefined' into NaN
     };
 
-    try {
-      await updatePost(postData);
+    // 3. LOG THIS! If this says NaN or undefined, your useParams is empty
+    console.log("Data being sent to manager:", finalPostData);
 
-      setRefreshPosts((prev) => prev + 1);
+    try {
+      // 4. CRITICAL: Pass finalPostData, NOT postToEdit
+      await updatePost(finalPostData);
+
       alert("Post updated successfully!");
       navigate(`/posts/${post_id}`);
     } catch (error) {
