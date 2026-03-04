@@ -4,9 +4,15 @@
 // All other imports:
 import { useEffect, useState } from "react"
 import { getAllPosts } from "../../managers/PostManager";
+import { useNavigate, useParams } from "react-router-dom";
+
 
 export const PostList = () => {
     const [posts, setPosts] = useState([])
+    const { post_id } = useParams();
+
+    const navigate = useNavigate();
+    
 
     useEffect(() => {
         getAllPosts().then((postData) => {
@@ -22,7 +28,7 @@ export const PostList = () => {
                         {
                             posts.map(post => {
                                 return <section key={`post${post.id}`} className="post">
-                                    <div className="post-title">{post.title}</div>
+                                    <div className="post-title" onClick={() => navigate(`posts/${post.id}`)}>{post.title}</div>
                                     <div className="post-author">{post.author}</div>
                                     <div className="post-category">{post.category}</div>
                                 </section>
