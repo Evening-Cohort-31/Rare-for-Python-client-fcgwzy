@@ -11,6 +11,7 @@ import { PostDetails } from "../components/posts/Posts"
 import { ManageTags } from "../components/tag/ManageTags"
 import { PostList } from "../components/posts/PostList"
 import { PostForm } from "../components/posts/PostForm"
+import { EditPost } from "../components/posts/EditPosts"
 import { EditCategoryForm } from "../components/categories/editCategoryForm"
  
 export const ApplicationViews = ({ token, setToken }) => {
@@ -27,6 +28,7 @@ export const ApplicationViews = ({ token, setToken }) => {
         <Route path="/tags" element={<TagList />} />
         <Route path="/newtag" element={<TagForm />} />
         <Route path="/posts/:post_id" element={<PostDetails token={token} />} />
+        <Route path="/posts/:post_id/edit_post" element={<EditPost />} />
         <Route path="/posts/:post_id/manage-tags" element={<ManageTags />} />
         <Route path="/posts/new" element={<PostForm token={token} />} />
         <Route path="/categories/:categoryId/edit" element={< EditCategoryForm />} />

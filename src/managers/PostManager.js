@@ -43,3 +43,13 @@ export const updatePostTags = (postId, tagIds) => {
         })
     })
 }
+
+export const updatePost = (postObj) => {
+  return fetch(`http://localhost:8088/posts/${postObj.id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(postObj)
+  })
+}
