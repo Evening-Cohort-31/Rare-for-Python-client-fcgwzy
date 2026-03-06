@@ -8,16 +8,11 @@ import { EditButton } from "../buttons/editButton";
 export const PostDetails = () => {
   const [post, setPost] = useState({});
   const { post_id } = useParams();
-  const [currentUser, setCurrentUser] = useState(null);
-  const navigate = useNavigate();
 
-  useEffect(() => {
-    const localRareUser = localStorage.getItem("auth-token");
-    if (localRareUser) {
-      const userObject = JSON.parse(localRareUser)
-      setCurrentUser(userObject);
-    }
-  }, []);
+  const [currentUser, setCurrentUser] = useState(
+    localStorage.getItem("auth_token"),
+  );
+  const navigate = useNavigate();
 
   useEffect(() => {
     getPostById(post_id).then((data) => {
@@ -25,10 +20,17 @@ export const PostDetails = () => {
     });
   }, [post_id]);
 
-  const isAuthor = post.user?.id === currentUser?.id;// Add these for debugging
-  console.log("Current Logged In User ID:", currentUser?.id);
-  console.log("Post Object from Database:", post);
-  
+  const loggedInId = Number(currentUser); 
+  const authorId = Number(post?.user_id);
+
+  const isAuthor =
+    loggedInId !== 0 && authorId !== 0 && loggedInId === authorId;
+
+  // Updated logs to help you see the match
+  console.log("Logged In ID:", loggedInId);
+  console.log("Post Author ID:", authorId);
+  console.log("Do they match?", isAuthor);
+
   return (
     <section className="post-details">
       <header className="post-header">{post.title}</header>
