@@ -8,7 +8,15 @@ import { EditButton } from "../buttons/editButton";
 export const PostDetails = () => {
   const [post, setPost] = useState({});
   const { post_id } = useParams();
+  const [currentUser, setCurrentUser] = useState(null);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const localRareUser = localStorage.getItem("auth-token");
+    if (localRareUser) {
+      setCurrentUser(JSON.parse(localRareUser));
+    }
+  }, []);
 
   useEffect(() => {
     getPostById(post_id).then((data) => {
@@ -16,6 +24,10 @@ export const PostDetails = () => {
     });
   }, [post_id]);
 
+  const isAuthor = post.user?.id === currentUser?.id;// Add these for debugging
+  console.log("Current Logged In User ID:", currentUser?.id);
+  console.log("Post Object from Database:", post);
+  
   return (
     <section className="post-details">
       <header className="post-header">{post.title}</header>
@@ -35,7 +47,7 @@ export const PostDetails = () => {
           {post.author}
         </div>
       </div>
-      <CommentForm />
+
       <div>
         <span>Tags: </span>
         {post.tags && post.tags.length > 0 ? (
@@ -44,12 +56,20 @@ export const PostDetails = () => {
           <span>No tags assigned</span>
         )}
       </div>
-      <button onClick={() => navigate(`/posts/${post_id}/manage-tags`)}>
-        Manage Tags
-      </button>
-      <div>
-        <EditButton />
-      </div>
+
+      {isAuthor ? (
+        <div>
+          <button onClick={() => navigate(`/posts/${post_id}/manage-tags`)}>
+            Manage Tags
+          </button>
+          <div>
+            <EditButton />
+          </div>
+        </div>
+      ) : (
+        <div>Leave a Comment!</div>
+      )}
+      <CommentForm />
     </section>
   );
 };
