@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react"
 import { getPostsByUserId, deletePost } from "../../managers/PostManager"
 import { useNavigate } from "react-router-dom"
-import { EditButton } from "../buttons/editButton"
 // import "./MyPosts.css"
 
 export const MyPosts = ({ token }) => {

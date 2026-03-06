@@ -41,7 +41,7 @@ export const CategoriesDropdown = ({value, onChange}) => {
         {category.map((categoryObject) => {
           return (
             <option key={categoryObject.id} value={categoryObject.id}>
-              {categoryObject.label}
+              {categoryObject.category}
             </option>
           );
         })}
