@@ -14,7 +14,8 @@ export const PostDetails = () => {
   useEffect(() => {
     const localRareUser = localStorage.getItem("auth-token");
     if (localRareUser) {
-      setCurrentUser(JSON.parse(localRareUser));
+      const userObject = JSON.parse(localRareUser)
+      setCurrentUser(userObject);
     }
   }, []);
 
