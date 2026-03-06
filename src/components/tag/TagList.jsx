@@ -27,6 +27,10 @@ export const TagList = () => {
             })
         }
     }
+
+    const handleEditTag = (tagId) => {
+        navigate(`/edit-tag/${tagId}`)
+    }
     
     return (
         <div className="tags-container">
@@ -36,10 +40,13 @@ export const TagList = () => {
                             
                             tags.map(tag => {
                                 return <section key={`tag${tag.id}`} className="tag">
-                                    <div className="tag-label">{tag.label}</div>
+                                    {isAdmin && (
+                                        <button onClick={() => handleEditTag(tag.id)}>Edit</button>
+                                    )}
                                     {isAdmin && (
                                         <button onClick={() => handleDelete(tag.id)}>Delete</button>
                                     )}
+                                    <div className="tag-label">{tag.label}</div>
                                 </section>
                             })
                         }
