@@ -5,8 +5,8 @@
 import { useNavigate } from "react-router-dom"
 import { useEffect, useState } from "react"
 import { getAllCategories, deleteCategory } from "../../managers/CategoryManager";
-import { DeleteButton } from "../buttons/DeleteButton";
-import { EditButton } from "../buttons/EditButton";
+import { DeleteButton } from "../buttons/deleteButton";
+import { EditButton } from "../buttons/editButton";
 
 const initialCategoryState = {
     id: 0,
@@ -51,9 +51,9 @@ export const CategoryList = () => {
                             
                             categories.map(category => {
                                 return <section key={`category${category.id}`} className="category">
-                                    <EditButton />
-                                    <DeleteButton onClick={() => handleDelete(category.id, category.label)} />
                                     <div className="category-label">{category.label}</div>
+                                    <EditButton onClick={() => navigate(`/categories/${category.id}/edit`)} />
+                                    <DeleteButton onClick={() => handleDelete(category.id, category.label)} />
                                 </section>
                             })
                         }
