@@ -19,3 +19,17 @@ export const createComment = (commentObj) => {
     })
     .then((res) => res.json())    
 }
+
+export const getCommentById = (id) => {
+    return fetch(`http://localhost:8088/comments/${id}`).then(res => res.json())
+}
+
+export const updateComment = (comment) => {
+    return fetch(`http://localhost:8088/comments/${comment.id}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(comment)
+    })
+}

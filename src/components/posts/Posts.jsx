@@ -81,7 +81,7 @@ export const PostDetails = () => {
             Manage Tags
           </button>
           <div>
-            <EditButton />
+            <EditButton route={`/posts/${post_id}/edit`}/>
           </div>
         </div>
       ) : (
