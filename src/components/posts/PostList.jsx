@@ -3,16 +3,24 @@
 
 // All other imports:
 import { useEffect, useState } from "react"
-import { getAllPosts } from "../../managers/PostManager";
+import { useLocation } from "react-router-dom"
+import { getAllPosts, getSubscribedPosts } from "../../managers/PostManager";
 
 export const PostList = () => {
-    const [posts, setPosts] = useState([])
+    const [allPosts, setAllPosts] = useState([])
+    const [subscribedPosts, setSubscribedPosts] = useState([])
+    const location = useLocation()
+    const myId = parseInt(localStorage.getItem("token"))
+    const isHomepage = location.pathname === "/"
 
     useEffect(() => {
-        getAllPosts().then((postData) => {
-            setPosts(postData)
-        })
-    }, [])
+
+        getAllPosts().then(setAllPosts)
+
+        if (isHomepage) {
+            getSubscribedPosts(myId).then(setSubscribedPosts)
+        }
+    }, [isHomepage])
     
 
     return (
@@ -20,7 +28,7 @@ export const PostList = () => {
             <h2>Posts</h2>
                 <div className="posts-list">
                         {
-                            posts.map(post => {
+                            allPosts.map(post => {
                                 return <section key={`post${post.id}`} className="post">
                                     <div className="post-title">{post.title}</div>
                                     <div className="post-author">{post.author}</div>
@@ -29,6 +37,19 @@ export const PostList = () => {
                             })
                         }
                 </div>
+            <h2>Subscribed Posts</h2>
+                                <div className="subposts-list">
+                        {
+                            subscribedPosts.map(post => {
+                                return <section key={`post${post.id}`} className="post">
+                                    <div className="post-title">{post.title}</div>
+                                    <div className="post-author">{post.author}</div>
+                                    <div className="post-category">{post.category}</div>
+                                </section>
+                            })
+                        }
+                </div>
+
         </div>
     )
 }
