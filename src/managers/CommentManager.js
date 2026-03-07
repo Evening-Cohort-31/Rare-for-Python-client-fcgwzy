@@ -3,6 +3,11 @@ export const getAllComments = () => {
     res.json())
 }
 
+export const getAllCommentsForPost = (post_id) => {
+    return fetch(`http://localhost:8088/comments?post_id=${post_id}`).then ((res) =>
+    res.json())
+}
+
 export const createComment = (commentObj) => {
     return fetch("http://localhost:8088/comments", {
         method: "POST",
