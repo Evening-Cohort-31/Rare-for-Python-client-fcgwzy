@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react"
 import { getAllCommentsForPost } from "../../managers/CommentManager"
 import { useParams } from "react-router-dom";
-import { EditButton } from "../buttons/editButton";
-import { DeleteButton } from "../buttons/deleteButton";
+import { EditButton } from "../buttons/EditButton.jsx"
+import { DeleteButton } from "../buttons/DeleteButton.jsx"
 
 export const Comment = ({commentInstance}) => {
     const [currentUser] = useState(localStorage.getItem("auth-token"))
