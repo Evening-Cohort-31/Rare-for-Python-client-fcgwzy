@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { CategoriesDropdown } from "../categories/categoriesDropdown";
 import { getPostById, updatePost } from "../../managers/PostManager";
-import { UpdateButton } from "../buttons/saveButton";
+import { UpdateButton } from "../buttons/SaveButton";
 
 export const EditPost = () => {
   const { post_id } = useParams();
