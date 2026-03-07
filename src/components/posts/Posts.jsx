@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { getPostById } from "../../managers/PostManager";
-import { CommentForm } from "../comments/comments";
 import { EditButton } from "../buttons/editButton";
+import { CommentForm } from "../comments/newComment";
+import { CommentList } from "../comments/commentList";
 // import "./Post.css"
 
 export const PostDetails = () => {
@@ -72,7 +73,8 @@ export const PostDetails = () => {
       ) : (
         <div>Leave a Comment!</div>
       )}
-      <CommentForm />
+      <CommentForm/>
+      <CommentList/>
     </section>
   );
 };
