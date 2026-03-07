@@ -1,7 +1,3 @@
-// Import the CSS
-
-
-// All other imports:
 import { useEffect, useState } from "react"
 import { useLocation } from "react-router-dom"
 import { getAllPosts, getSubscribedPosts } from "../../managers/PostManager";
