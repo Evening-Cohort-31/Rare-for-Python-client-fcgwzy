@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
-import { useNavigate } from "react-router-dom"
 import { getAllUsers } from "../../managers/userManager"
+import { useNavigate } from "react-router-dom"
 
 export const UserList = ({ token }) => {
     const [users, setUsers] = useState([])
@@ -9,7 +9,12 @@ export const UserList = ({ token }) => {
     useEffect(() => {
         if (token) {
             getAllUsers().then(usersArray => {
-                setUsers(usersArray)
+                console.log("users before sort:", usersArray)
+
+                const sorted = usersArray.sort((a, b) =>
+                    a.username.localeCompare(b.username)
+                )
+                setUsers(sorted)
             })
         }
     }, [token])
@@ -29,9 +34,12 @@ export const UserList = ({ token }) => {
                             onClick={() => navigate(`/users/${user.id}`)}
                         >
                             <span className="user-name">
-                                {user.first_name} {user.last_name}
+                                {user.username} 
                             </span>
-                            <span className="user-username">@{user.username}</span>
+                            <span className="user-username"> ... {user.first_name} {user.last_name}</span>
+                            <span className="user-type">
+                                {user.is_admin ? " Admin" : " Author"}
+                            </span>
                         </div>
                     ))}
                 </div>
