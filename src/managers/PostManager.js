@@ -53,3 +53,12 @@ export const updatePost = (postObj) => {
     body: JSON.stringify(postObj)
   })
 }
+
+export const getSubscribedPosts = (followerId) => {
+    return fetch(`http://localhost:8088/posts?follower_id=${followerId}`, {
+        headers: {
+            "Authorization": `Token ${localStorage.getItem("token")}`
+        }
+    })
+    .then(res => res.json())
+}
