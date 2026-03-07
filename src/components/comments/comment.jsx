@@ -1,11 +1,9 @@
-import { useEffect, useState } from "react"
-import { getAllCommentsForPost } from "../../managers/CommentManager"
-import { useParams } from "react-router-dom";
+import { useState } from "react"
 import { EditButton } from "../buttons/editButton";
 import { DeleteButton } from "../buttons/deleteButton";
 
 export const Comment = ({commentInstance}) => {
-    const [currentUser] = useState(localStorage.getItem("auth-token"))
+    const [currentUser] = useState(localStorage.getItem("auth_token"))
 
     const commentAuthor = Number(currentUser);
     const authorId = Number(commentInstance?.author_id);

@@ -1,17 +1,15 @@
 import { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
 import { createComment } from "../../managers/CommentManager";
 
-export const CommentForm = () => {
-    const navigate = useNavigate();
-    const { post_id } = useParams();
+export const CommentForm = ({ post_id, refreshComments }) => {
 
     const localUser = localStorage.getItem("auth_token");
-    const userId = JSON.parse(localUser)
+    const userId = Number(localUser)
 
     const [newComment, setNewComment] = useState({
         post_id: parseInt(post_id),
         author_id: parseInt(userId),
+        subject: "",
         publication_date: new Date().toISOString().split('T')[0],
         content: ""
     })
@@ -34,10 +32,13 @@ export const CommentForm = () => {
     }
 
     createComment(newComment).then(() => {
-        setNewComment((prevState) => ({
-            ...prevState,
+        setNewComment({
+            post_id: parseInt(post_id),
+            author_id: newComment.author_id,
+            subject: "",
             content: ""
-        }));
+        });
+        refreshComments();
         alert("Comment Added!")
     })
   }
@@ -45,6 +46,15 @@ export const CommentForm = () => {
 
   return (
     <form className="comment-add-form" onSubmit={handleSubmit}>
+      <input
+        className="comment-subject-input"
+        type="text"
+        name="subject" // Match the state key
+        value={newComment.subject}
+        placeholder="Subject"
+        onChange={handleInputChange}
+        required
+      />
       <input
         className="comment-input"
         type="text"

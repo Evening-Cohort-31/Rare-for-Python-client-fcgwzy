@@ -4,16 +4,21 @@ import { getPostById } from "../../managers/PostManager";
 import { EditButton } from "../buttons/editButton";
 import { CommentForm } from "../comments/newComment";
 import { CommentList } from "../comments/commentList";
+import { getAllCommentsForPost } from "../../managers/CommentManager";
 // import "./Post.css"
 
 export const PostDetails = () => {
   const [post, setPost] = useState({});
+  const [comments, setComments] = useState([]);
   const { post_id } = useParams();
-
-  const [currentUser, setCurrentUser] = useState(
-    localStorage.getItem("auth_token"),
-  );
   const navigate = useNavigate();
+  const [currentUser] = useState(localStorage.getItem("auth_token"));
+
+  const getAndSetComments = () => {
+    getAllCommentsForPost(post_id).then((data) => {
+      setComments(data);
+    });
+  };
 
   useEffect(() => {
     getPostById(post_id).then((data) => {
@@ -21,7 +26,16 @@ export const PostDetails = () => {
     });
   }, [post_id]);
 
-  const loggedInId = Number(currentUser); 
+  useEffect(() => {
+    getPostById(post_id).then((data) => {
+      setPost(data);
+    });
+
+    getAndSetComments();
+    
+  }, [post_id]);
+
+  const loggedInId = Number(currentUser);
   const authorId = Number(post?.user_id);
 
   const isAuthor =
@@ -73,8 +87,8 @@ export const PostDetails = () => {
       ) : (
         <div>Leave a Comment!</div>
       )}
-      <CommentForm/>
-      <CommentList/>
+      <CommentForm post_id={post_id} refreshComments={getAndSetComments} />
+      <CommentList comments={comments} />
     </section>
   );
 };
