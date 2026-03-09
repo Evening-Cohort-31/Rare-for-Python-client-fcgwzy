@@ -1,12 +1,9 @@
 import "./button.css";
 
 export const DeleteButton = ({ onClick }) => {
-  const handleDelete = async (e) => {
-    await onClick(e);
-  };
   return (
-    <button className="cancel-btn" onClick={handleDelete}>
-      Delete
-    </button>
-  );
+      <button className="delete-btn round-btn" onClick={onClick}>
+        Delete
+      </button>
+    )
 };
