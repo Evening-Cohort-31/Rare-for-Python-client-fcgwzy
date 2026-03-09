@@ -87,8 +87,8 @@ export const PostDetails = () => {
       ) : (
         <div>Leave a Comment!</div>
       )}
-      <CommentForm post_id={post_id} refreshComments={getAndSetComments} />
-      <CommentList comments={comments} />
+      <CommentForm post_id={post_id} />
+      <CommentList comments={comments}  onUpdateSuccess={getAndSetComments}/>
     </section>
   );
 };
