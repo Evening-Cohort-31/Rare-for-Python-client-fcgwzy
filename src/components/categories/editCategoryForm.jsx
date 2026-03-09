@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { updateCategory, getCategoryById } from "../../managers/CategoryManager";
 import { useEffect, useState } from "react";
-import { CancelButton } from "../buttons/cancelButton.jsx"
+import { CancelButton } from "../buttons/CancelButton.jsx"
 
 
 

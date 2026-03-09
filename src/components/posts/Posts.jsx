@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { getPostById } from "../../managers/PostManager";
-import { EditButton } from "../buttons/editButton";
+import { EditButton } from "../buttons/EditButton.jsx"
 import { CommentForm } from "../comments/newComment";
 import { CommentList } from "../comments/commentList";
 import { getAllCommentsForPost } from "../../managers/CommentManager";
@@ -61,7 +61,13 @@ export const PostDetails = () => {
           <span className="post-info">Date: </span>
           {post.publication_date}
           <span className="post-info">Author: </span>
-          {post.author}
+          <span
+            className="post-author-link"
+            onClick={() => navigate(`/users/${post.user_id}`)}
+            style={{ cursor: "pointer", textDecoration: "underline" }}
+          >
+            {post.author}
+          </span>
         </div>
       </div>
       <div>
