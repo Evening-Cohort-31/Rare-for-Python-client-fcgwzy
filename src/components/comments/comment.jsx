@@ -1,6 +1,6 @@
 
 import { useState } from "react";
-import { updateComment } from "../../managers/CommentManager";
+import { deleteComment, updateComment } from "../../managers/CommentManager";
 import { DeleteButton } from "../buttons/deleteButton.jsx";
 
 export const Comment = ({ commentInstance, onUpdateSuccess }) => {
@@ -52,6 +52,20 @@ const handleSave = async (e) => {
     }
   };
 
+  const handleDelete = async () => {
+    const confirmed = window.confirm("Are you sure you want to delete this comment?");
+
+    if(confirmed) {
+        const response = await deleteComment(commentInstance.id);
+
+        if (response.ok) {
+            onUpdateSuccess();
+        } else {
+            alert("Failed to delete the comment.")
+        }
+    }
+  }
+
   // --- EDITING VIEW ---
   if (isEditing) {
     return (
@@ -96,7 +110,7 @@ const handleSave = async (e) => {
         <div className="author-controls">
           {/* Trigger the edit form */}
           <button onClick={() => setIsEditing(true)}>Edit</button>
-          <DeleteButton />
+          <DeleteButton onClick={handleDelete}/>
         </div>
       )}
       <hr />

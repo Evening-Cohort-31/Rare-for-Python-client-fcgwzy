@@ -32,7 +32,6 @@ export const PostDetails = () => {
     });
 
     getAndSetComments();
-    
   }, [post_id]);
 
   const loggedInId = Number(currentUser);
@@ -65,7 +64,6 @@ export const PostDetails = () => {
           {post.author}
         </div>
       </div>
-
       <div>
         <span>Tags: </span>
         {post.tags && post.tags.length > 0 ? (
@@ -74,21 +72,20 @@ export const PostDetails = () => {
           <span>No tags assigned</span>
         )}
       </div>
-
       {isAuthor ? (
         <div>
           <button onClick={() => navigate(`/posts/${post_id}/manage-tags`)}>
             Manage Tags
           </button>
           <div>
-            <EditButton route={`/posts/${post_id}/edit`}/>
+            <EditButton route={`/posts/${post_id}/edit`} />
           </div>
         </div>
       ) : (
         <div>Leave a Comment!</div>
       )}
-      <CommentForm post_id={post_id} />
-      <CommentList comments={comments}  onUpdateSuccess={getAndSetComments}/>
+      <CommentForm post_id={post_id} refreshComments={getAndSetComments} />{" "}
+      <CommentList comments={comments} onUpdateSuccess={getAndSetComments} />
     </section>
   );
 };

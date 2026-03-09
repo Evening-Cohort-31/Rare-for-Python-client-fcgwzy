@@ -31,12 +31,18 @@ export const CommentForm = ({ post_id, refreshComments }) => {
         return;
     }
 
+    const commentWithDate = {
+      ...newComment,
+      publication_date: new Date().toISOString().split('T')[0]
+    }
+
     createComment(newComment).then(() => {
         setNewComment({
             post_id: parseInt(post_id),
             author_id: newComment.author_id,
             subject: "",
-            content: ""
+            content: "",
+            publication_date: new Date().toISOString().split('T')[0]
         });
         refreshComments();
         alert("Comment Added!")
