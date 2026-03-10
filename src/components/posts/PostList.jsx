@@ -22,6 +22,8 @@ export const PostList = () => {
             getSubscribedPosts(myId).then(setSubscribedPosts)
         }
     }, [isHomepage, myId])
+
+    
     
 
     return (
