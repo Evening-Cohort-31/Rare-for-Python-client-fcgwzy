@@ -16,6 +16,7 @@ import { EditPost } from "../components/posts/EditPosts"
 import { EditCategoryForm } from "../components/categories/editCategoryForm"
 import { UserList } from "../components/User/userList"
 import { UserDetail } from "../components/User/userDetail"
+import { UserEditForm } from "../components/User/UserEditForm"
 
 export const ApplicationViews = ({ token, setToken }) => {
   return <>
@@ -38,6 +39,7 @@ export const ApplicationViews = ({ token, setToken }) => {
         <Route path="/categories/:categoryId/edit" element={<EditCategoryForm />} />
         <Route path="/users" element={<UserList token={token} />} />
         <Route path="/users/:userId" element={<UserDetail token={token} />} />
+        <Route path="/users/:userId/edit" element={<UserEditForm />} />
       </Route>
     </Routes>
   </>
