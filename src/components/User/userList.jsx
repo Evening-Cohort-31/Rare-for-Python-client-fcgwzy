@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react"
 import { getAllUsers } from "../../managers/userManager"
 import { useNavigate } from "react-router-dom"
-import { EditButton } from "../buttons/EditButton.jsx"
+import { EditButton } from "../buttons/editButton.jsx"
+import { DeactivationButton } from "../buttons/activation.jsx"
 
 export const UserList = ({ token }) => {
     const [users, setUsers] = useState([])
@@ -50,6 +51,7 @@ export const UserList = ({ token }) => {
                                 {user.is_admin ? " Admin" : " Author"}
                             </span>
                             <EditButton route={`/users/${user.id}/edit`} />
+                            <DeactivationButton />
                         </div>
                     ))}
                 </div>
