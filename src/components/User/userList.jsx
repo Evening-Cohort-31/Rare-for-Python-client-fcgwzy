@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { getAllUsers } from "../../managers/userManager"
 import { useNavigate } from "react-router-dom"
+import { EditButton } from "../buttons/EditButton.jsx"
 
 export const UserList = ({ token }) => {
     const [users, setUsers] = useState([])
@@ -9,8 +10,6 @@ export const UserList = ({ token }) => {
     useEffect(() => {
         if (token) {
             getAllUsers().then(usersArray => {
-                console.log("users before sort:", usersArray)
-
                 const sorted = usersArray.sort((a, b) =>
                     a.username.localeCompare(b.username)
                 )
@@ -31,15 +30,26 @@ export const UserList = ({ token }) => {
                         <div
                             key={user.id}
                             className="user-item"
-                            onClick={() => navigate(`/users/${user.id}`)}
                         >
-                            <span className="user-name">
-                                {user.username} 
+                            <span
+                                className="user-name"
+                                onClick={() => navigate(`/users/${user.id}`)}
+                            >
+                                {user.username}
                             </span>
-                            <span className="user-username"> ... {user.first_name} {user.last_name}</span>
-                            <span className="user-type">
+                            <span
+                                className="user-username"
+                                onClick={() => navigate(`/users/${user.id}`)}
+                            >
+                                 ... {user.first_name} {user.last_name}
+                            </span>
+                            <span
+                                className="user-type"
+                                onClick={() => navigate(`/users/${user.id}`)}
+                            >
                                 {user.is_admin ? " Admin" : " Author"}
                             </span>
+                            <EditButton route={`/users/${user.id}/edit`} />
                         </div>
                     ))}
                 </div>

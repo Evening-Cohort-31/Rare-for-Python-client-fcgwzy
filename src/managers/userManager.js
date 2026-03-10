@@ -17,3 +17,14 @@ export const getUserById = (userId) => {
     })
         .then(res => res.json())
 }
+
+export const updateUser = (userId, userObj) => {
+    return fetch(`${Url}/users/${userId}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Token ${localStorage.getItem("auth_token")}`
+        },
+        body: JSON.stringify(userObj)
+    })
+}
