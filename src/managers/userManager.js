@@ -9,13 +9,13 @@ export const getAllUsers = () => {
         .then(res => res.json())
 }
 
-export const getUserById = (userId) => {
-    return fetch(`${Url}/users/${userId}`, {
+export const getUserById = async (userId) => {
+    const res = await fetch(`${Url}/users/${userId}`, {
         headers: {
             "Authorization": `Token ${localStorage.getItem("auth_token")}`
         }
     })
-        .then(res => res.json())
+    return await res.json()
 }
 
 export const updateUser = (userId, userObj) => {
