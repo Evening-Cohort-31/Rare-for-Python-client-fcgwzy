@@ -63,3 +63,13 @@ export const getSubscribedPosts = (followerId) => {
     })
     .then(res => res.json())
 }
+
+export const searchPosts = (searchTerm) => {
+    return fetch(`http://localhost:8088/posts?search=${searchTerm}`)
+        .then(res => res.json())
+}
+
+export const searchPostsByTag = (tagLabel) => {
+    return fetch(`http://localhost:8088/posts?tag=${tagLabel}`)
+        .then(res => res.json())
+}
