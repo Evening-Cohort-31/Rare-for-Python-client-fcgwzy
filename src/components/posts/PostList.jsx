@@ -11,16 +11,19 @@ export const PostList = () => {
     const [posts, setPosts] = useState([])
     const { post_id } = useParams();
 
-    const navigate = useNavigate();
     
 
-    useEffect(() => {
-
-        getAllPosts().then(setPosts)
-
-        if (isHomepage) {
+    const navigate = useNavigate();
+    
+    const getAndSetSubscribedPosts = () => {
+        if (isHomepage && myId) {
             getSubscribedPosts(myId).then(setSubscribedPosts)
         }
+    }
+
+    useEffect(() => {
+        getAllPosts().then(setPosts)
+        getAndSetSubscribedPosts()
     }, [isHomepage, myId])
 
     
