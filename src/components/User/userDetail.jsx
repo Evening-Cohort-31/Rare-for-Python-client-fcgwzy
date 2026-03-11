@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { useParams, useNavigate } from "react-router-dom"
 import { getUserById } from "../../managers/userManager"
-import { createSubscription, getAllSubscriptions } from "../../managers/SubscriptionManager"
+import { createSubscription, getAllSubscriptions, unsubscribe } from "../../managers/SubscriptionManager"
 
 export const UserDetail = ({ token }) => {
     const [user, setUser] = useState(null)
@@ -11,28 +11,36 @@ export const UserDetail = ({ token }) => {
 
     const myId = parseInt(localStorage.getItem("token"))
 
+    const getAndSetSubscriptions = () => {
+        getAllSubscriptions().then(setSubscriptions)
+    }
+
     useEffect(() => {
         if (token && userId) {
             getUserById(userId).then(userData => {
                 setUser(userData)
             })
-            getAllSubscriptions().then(setSubscriptions)
+            getAndSetSubscriptions()
         }
     }, [token, userId])
 
-    const isSubscribed = subscriptions.find(sub => 
-        sub.author_id === parseInt(userId) && sub.follower_id === myId)
+    const activeSub = subscriptions.find(sub => 
+        sub.author_id === parseInt(userId) && 
+        sub.follower_id === myId && 
+        sub.end_datetime === null
+    )
     
-    const handleSubscribe = (authorId) => {
-        const subscriptionObject = {
-        author_id: parseInt(authorId),
-        follower_id: myId,
-        created_on: new Date().toISOString()
+    const handleToggleSubscription = () => {
+        if (activeSub) {
+            unsubscribe(activeSub.id).then(() => getAndSetSubscriptions())
+        } else {
+            const subscriptionObject = {
+                author_id: parseInt(userId),
+                follower_id: myId,
+                created_on: new Date().toISOString()
+            }
+            createSubscription(subscriptionObject).then(() => getAndSetSubscriptions())
         }
-    
-        createSubscription(subscriptionObject).then(() => {
-            getAllSubscriptions().then(setSubscriptions)
-        })
     }
 
 
@@ -94,11 +102,10 @@ export const UserDetail = ({ token }) => {
                     </div>
                     {myId !== parseInt(userId) && (
                         <button 
-                            className={isSubscribed ? "subscribed-btn" : "subscribe-btn"}
-                            disabled={isSubscribed} 
-                            onClick={() => handleSubscribe(userId)}
+                            className={activeSub ? "unsubscribe-btn" : "subscribe-btn"}
+                            onClick={handleToggleSubscription}
                         >
-                            {isSubscribed ? "Subscribed" : "Subscribe"}
+                            {activeSub ? "Unsubscribe" : "Subscribe"}
                         </button>
                     )}
                 </div>
