@@ -60,44 +60,21 @@ const getAndSetSubscribedPosts = () => {
         getAndSetSubscribedPosts()
     }, [isHomepage, myId])
 
-// const handleApprovalToggle = (post) => {
-//     const updatedPost = {
-//         ...post,
-//         approved: post.approved === 1 ? 0 : 1
-//     }
-
-//     setDisplayedPosts(prev =>
-//         prev.map(p => (p.id === post.id ? updatedPost : p))
-//     )
-
-//     setPosts(prev => prev.map(p => (p.id === post.id ? updatePost : p)))
-
-//     updatePost(post.id, updatedPost).catch(err => {
-//         console.error("Failed to update post approval", err)
-
-//         setDisplayedPosts(prev => prev.map(p => (p.id === post.id ? post : p)))
-
-//         setPosts(prev => prev.map(p => (p.id === post.id ? post : p)))
-//     })
-// }
 const handleApprovalToggle = (post) => {
     const updatedPost = {
         ...post,
         approved: post.approved === 1 ? 0 : 1
     }
 
-    // Optimistically update the UI
     setDisplayedPosts(prev =>
         prev.map(p => (p.id === post.id ? updatedPost : p))
     )
     setPosts(prev =>
-        prev.map(p => (p.id === post.id ? updatedPost : p)) // ✅ update post object, not function
+        prev.map(p => (p.id === post.id ? updatedPost : p)) 
     )
 
-    // Send update to API
     updatePost(post.id, updatedPost).catch(err => {
         console.error("Failed to update post approval", err)
-        // rollback in case of failure
         setDisplayedPosts(prev =>
             prev.map(p => (p.id === post.id ? post : p))
         )
