@@ -43,6 +43,24 @@ const handleSearch = async (query) => {
     setDisplayedPosts([...postMap.values()])
 }
 
+    
+
+    const navigate = useNavigate();
+    
+    const getAndSetSubscribedPosts = () => {
+        if (isHomepage && myId) {
+            getSubscribedPosts(myId).then(setSubscribedPosts)
+        }
+    }
+
+    useEffect(() => {
+        getAllPosts().then(setPosts)
+        getAndSetSubscribedPosts()
+    }, [isHomepage, myId])
+
+    
+    
+
     return (
         <div className="posts-container">
             <h2>Posts</h2>
