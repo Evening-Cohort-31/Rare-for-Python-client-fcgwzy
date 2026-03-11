@@ -34,7 +34,7 @@ export const updateUserAvatar = (userId, avatarUrl) => {
         method: "PUT",
         headers: {
             "Content-Type": "application/json",
-            "Authorization": `Token ${localStorage.getItem("token")}`
+            "Authorization": `Token ${localStorage.getItem("auth_token")}`
         },
         body: JSON.stringify({ profile_image_url: avatarUrl })
     })

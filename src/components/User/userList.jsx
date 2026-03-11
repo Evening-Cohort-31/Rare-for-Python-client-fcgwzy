@@ -39,14 +39,15 @@ export const UserList = ({ token }) => {
     if (confirmed) {
       const updatedUser = {
         ...user,
-        // Flip the status
         active: user.active ? 0 : 1,
       };
 
       const response = await updateUser(userId, updatedUser);
 
-      if (response.ok) {
+      if (response.ok || response.status === 204) {
         getAndSetUsers();
+      } else {
+        console.error("Failed to update user status");
       }
     }
   };
@@ -62,7 +63,7 @@ export const UserList = ({ token }) => {
           {users.map((user) => (
             <div
               key={user.id}
-              className={`user-item ${!user.active} ? "deactivated : ""`}
+              className={`user-item ${!user.active ? "deactivated" : ""}`}
             >
               <span
                 className="user-name"
