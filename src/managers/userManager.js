@@ -28,3 +28,14 @@ export const updateUser = (userId, userObj) => {
         body: JSON.stringify(userObj)
     })
 }
+
+export const updateUserAvatar = (userId, avatarUrl) => {
+    return fetch(`${Url}/users/${userId}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Token ${localStorage.getItem("token")}`
+        },
+        body: JSON.stringify({ profile_image_url: avatarUrl })
+    })
+}

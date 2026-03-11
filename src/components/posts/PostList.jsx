@@ -12,16 +12,19 @@ export const PostList = () => {
     const { post_id } = useParams();
     const isAdmin = localStorage.getItem("is_admin") === "1"
 
-    const navigate = useNavigate();
     
 
-    useEffect(() => {
-
-        getAllPosts().then(setPosts)
-
-        if (isHomepage) {
+    const navigate = useNavigate();
+    
+    const getAndSetSubscribedPosts = () => {
+        if (isHomepage && myId) {
             getSubscribedPosts(myId).then(setSubscribedPosts)
         }
+    }
+
+    useEffect(() => {
+        getAllPosts().then(setPosts)
+        getAndSetSubscribedPosts()
     }, [isHomepage, myId])
 
     const handleApprovalToggle = (post) => {
