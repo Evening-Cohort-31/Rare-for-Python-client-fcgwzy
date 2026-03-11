@@ -77,12 +77,19 @@ export const approvePost = (postId) => {
     })
 }
 
-export const searchPosts = (searchTerm) => {
-    return fetch(`http://localhost:8088/posts?search=${searchTerm}`)
-        .then(res => res.json())
+export const searchPosts = (searchTerm, userId) => {
+    return fetch(`http://localhost:8088/posts?search=${searchTerm}&user_id=${userId}`, {
+        headers: {
+            "Authorization": `Token ${localStorage.getItem("token")}`
+        }
+    }).then(res => res.json())
 }
 
-export const searchPostsByTag = (tagLabel) => {
-    return fetch(`http://localhost:8088/posts?tag=${tagLabel}`)
+export const searchPostsByTag = (tagLabel, userId) => {
+    return fetch(`http://localhost:8088/posts?tag=${tagLabel}&user_id=${userId}`, {
+        headers: {
+            "Authorization": `Token ${localStorage.getItem("token")}`
+        }
+    })
         .then(res => res.json())
 }
