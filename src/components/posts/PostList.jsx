@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { useLocation } from "react-router-dom"
-import { getAllPosts, getSubscribedPosts } from "../../managers/PostManager";
+import { getAllPosts, getSubscribedPosts, updatePost } from "../../managers/PostManager";
 import { useNavigate, useParams } from "react-router-dom";
 
 export const PostList = () => {
@@ -10,6 +10,7 @@ export const PostList = () => {
     const isHomepage = location.pathname === "/"
     const [posts, setPosts] = useState([])
     const { post_id } = useParams();
+    const isAdmin = localStorage.getItem("is_admin") === "1"
 
     const navigate = useNavigate();
     
@@ -22,6 +23,16 @@ export const PostList = () => {
             getSubscribedPosts(myId).then(setSubscribedPosts)
         }
     }, [isHomepage, myId])
+
+    const handleApprovalToggle = (post) => {
+        const updatedPost = {
+            ...post,
+            approved: post.approved === 1 ? 0 : 1
+        }
+        updatePost(post.id, updatedPost).then(() => {
+            getAllPosts().then(setPosts)
+        })
+    }
     
 
     return (
@@ -31,10 +42,22 @@ export const PostList = () => {
                         {
                             posts.map(post => {
                                 return <section key={`all-post-${post.id}`} className="post">
-                                    <div className="post-title" onClick={() => navigate(`posts/${post.id}`)}>{post.title}</div>
-                                    <div className="post-author">{post.author}</div>
-                                    <div className="post-category">{post.category}</div>
-                                </section>
+                                            <div className="post-title" onClick={() => navigate(`posts/${post.id}`)}>{post.title}</div>
+                                            <div className="post-author">{post.author}</div>
+                                            <div className="post-category">{post.category}</div>
+                                            <div className="post-approval">
+                                                {isAdmin && (
+                                                    <label>
+                                                        Approved
+                                                        <input
+                                                            type="checkbox"
+                                                            checked={post.approved === 1}
+                                                            onChange={() => handleApprovalToggle(post)}
+                                                        />
+                                                    </label>
+                                                )}
+                                            </div>
+                                        </section>
                             })
                         }
                 </div>
