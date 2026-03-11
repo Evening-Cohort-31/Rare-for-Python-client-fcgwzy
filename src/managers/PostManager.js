@@ -1,6 +1,9 @@
 export const getAllPosts = () => {
-    return fetch(`http://localhost:8088/posts`).then ((res) =>
-    res.json())
+    return fetch(`http://localhost:8088/posts`, {
+        headers: {
+            "Authorization": `Token ${localStorage.getItem("token")}`
+        }
+    }).then ((res) => res.json())
 }
 
 export const getPostById = (id) => {
@@ -45,13 +48,14 @@ export const updatePostTags = (postId, tagIds) => {
     })
 }
 
-export const updatePost = (postObj) => {
-  return fetch(`http://localhost:8088/posts/${postObj.id}`, {
+export const updatePost = (postId, updatedPost) => {
+  return fetch(`http://localhost:8088/posts/${postId}`, {
     method: "PUT",
     headers: {
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
+      "Authorization": `Token ${localStorage.getItem("token")}`
     },
-    body: JSON.stringify(postObj)
+    body: JSON.stringify(updatedPost)
   })
 }
 
@@ -62,6 +66,15 @@ export const getSubscribedPosts = (followerId) => {
         }
     })
     .then(res => res.json())
+}
+
+export const approvePost = (postId) => {
+    return fetch(`http://localhost:8088/posts/${postId}`, {
+        method: "PUT",
+        headers: {
+            "Authorization": `Token ${localStorage.getItem("token")}`
+        }
+    })
 }
 
 export const searchPosts = (searchTerm) => {
