@@ -45,7 +45,6 @@ const handleSearch = async (query) => {
 
     
 
-    const navigate = useNavigate();
     
     const getAndSetSubscribedPosts = () => {
         if (isHomepage && myId) {
