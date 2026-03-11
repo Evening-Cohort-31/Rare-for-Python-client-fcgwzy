@@ -6,25 +6,28 @@ export const Login = ({ setToken }) => {
   const username = useRef()
   const password = useRef()
   const navigate = useNavigate()
-  const [isUnsuccessful, setisUnsuccessful] = useState(false)
+  const [isUnsuccessful, setIsUnsuccessful] = useState(false)
 
   const handleLogin = (e) => {
     e.preventDefault()
 
     const user = {
       username: username.current.value,
-      password: password.current.value
-    }
+      password: password.current.value    }
 
     loginUser(user).then(res => {
-      if ("valid" in res && res.valid) {
+      console.log("Login Response:", res)
+      if (res.valid && (res.active == 1 || res.active === true || res.active === "1")) {
         setToken(res.token)
-        localStorage.setItem("token", res.token)
+        localStorage.setItem("auth_token", res.token)
         localStorage.setItem("is_admin", res.is_admin)
         navigate("/")
+      } else if (res.valid && (res.active === 0 || res.active === false || res.active === "0")){
+        alert("Your account has been deactivated. Please contact an admin to repeal.")
+        setIsUnsuccessful(true)
       }
       else {
-        setisUnsuccessful(true)
+        setIsUnsuccessful(true)
       }
     })
   }

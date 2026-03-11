@@ -35,7 +35,7 @@ export const UserEditForm = () => {
             </select>
 
             <SaveButton onClick={handleSave} />
-            <CancelButton onClick={() => navigate("/users")} />
+            <CancelButton onClick={() => navigate("/-1")} />
         </div>
     )
 }
