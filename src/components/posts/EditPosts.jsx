@@ -78,14 +78,15 @@ export const EditPost = () => {
 
     console.log("Data being sent to manager:", finalPostData);
 
-    try {
-      await updatePost(finalPostData);
-      alert("Post updated successfully!");
-      navigate(`/posts/${post_id}`);
-    } catch (error) {
-      console.error("Failed to update post:", error);
+    const response = await updatePost(post_id, finalPostData)
+
+    if (response.ok) {
+      alert("Post updated successfully!")
+      navigate(`/posts/${post_id}`)
+    } else {
+      console.error("Failed to update post")
     }
-  };
+  };  // ⬅️ this closing brace was missing
 
   return (
     <form className="post-edit-form" onSubmit={editExistingPost}>
