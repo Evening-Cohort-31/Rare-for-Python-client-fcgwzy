@@ -86,7 +86,7 @@ export const EditPost = () => {
     } else {
       console.error("Failed to update post")
     }
-  };  // ⬅️ this closing brace was missing
+  };
 
   return (
     <form className="post-edit-form" onSubmit={editExistingPost}>
