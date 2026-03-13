@@ -32,8 +32,8 @@ export const PostList = () => {
     }, [posts])
 
 const handleSearch = async (query) => {
-    const postsByTitle = await searchPosts(query)
-    const postsByTag = await searchPostsByTag(query)
+    const postsByTitle = await searchPosts(query, myId)
+    const postsByTag = await searchPostsByTag(query, myId)
 
     const postMap = new Map()
 
