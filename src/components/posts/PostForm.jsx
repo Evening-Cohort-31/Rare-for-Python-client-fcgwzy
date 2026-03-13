@@ -21,12 +21,25 @@ export const PostForm = ({ token }) => {
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-
     setNewPost((prevState) => ({
       ...prevState,
       [name]: value,
     }));
   };
+
+  const handleImageUpload = (event) => {
+    const file = event.target.files[0]
+    if (!file) return
+
+    const reader = new FileReader() // FileReader is a built in browser tool that can read files
+    reader.onloadend = () => {
+        setNewPost((prevState) => ({
+            ...prevState,
+            image_url: reader.result // replace image_url with the base64 string
+        }))
+    }
+    reader.readAsDataURL(file)
+  }
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -44,11 +57,11 @@ export const PostForm = ({ token }) => {
       return;
     }
 
-const postToSend = {
-  ...newPost,
-  user_id: token,
-  category_id: parseInt(newPost.category_id),
-};
+    const postToSend = {
+      ...newPost,
+      user_id: token,
+      category_id: parseInt(newPost.category_id),
+    };
 
     createPost(postToSend).then((createdPost) => {
       navigate(`/posts/${createdPost.id}`);
@@ -84,15 +97,16 @@ const postToSend = {
         ))}
       </select>
 
-      <label htmlFor="image_url">Header Image URL (optional)</label>
+      <label htmlFor="image_upload">Header Image</label>
       <input
-        type="text"
-        id="image_url"
-        name="image_url"
-        value={newPost.image_url}
-        placeholder="https://..."
-        onChange={handleInputChange}
+        type="file"
+        id="image_upload"
+        accept="image/*"
+        onChange={handleImageUpload}
       />
+      {newPost.image_url && (
+        <img src={newPost.image_url} alt="preview" style={{ width: "200px" }} />
+      )}
 
       <label htmlFor="content">Content</label>
       <textarea

@@ -1,12 +1,8 @@
-// CSS Import:
-
-// All other imports
-
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { CategoriesDropdown } from "../categories/categoriesDropdown";
 import { getPostById, updatePost } from "../../managers/PostManager";
-import { SaveButton } from "../buttons/saveButton.jsx"
+import { SaveButton } from "../buttons/SaveButton.jsx"
 
 export const EditPost = () => {
   const { post_id } = useParams();
@@ -19,11 +15,10 @@ export const EditPost = () => {
   });
 
   const navigate = useNavigate();
-
   const [refreshPosts, setRefreshPosts] = useState(0);
 
   useEffect(() => {
-if (!post_id || post_id === "undefined") return;
+    if (!post_id || post_id === "undefined") return;
 
     getPostById(post_id).then((postObj) => {
       if (postObj) {
@@ -32,7 +27,7 @@ if (!post_id || post_id === "undefined") return;
           title: postObj.title || "",
           image_url: postObj.image_url || "",
           content: postObj.content || "",
-          category_id: postObj.category_id || postObj.category_id || 0,
+          category_id: postObj.category_id || 0,
           tags: postObj.tags || [],
         });
       }
@@ -47,35 +42,44 @@ if (!post_id || post_id === "undefined") return;
     });
   };
 
+  const handleImageUpload = (event) => {
+    const file = event.target.files[0]
+    if (!file) return
+
+    const reader = new FileReader()
+    reader.onloadend = () => {
+        setPostToEdit((prevState) => ({
+            ...prevState,
+            image_url: reader.result
+        }))
+    }
+    reader.readAsDataURL(file)
+  }
+
   const handleCategoryChange = (newCategoryId) => {
     setPostToEdit({
       ...postToEdit,
-      category_id: parseInt(newCategoryId), // Ensure it's an integer htmlFor the DB
+      category_id: parseInt(newCategoryId),
     });
   };
 
- const editExistingPost = async (e) => {
+  const editExistingPost = async (e) => {
     e.preventDefault();
 
-    // 1. Validation
     if (!postToEdit.title?.trim() || !postToEdit.content?.trim()) {
       alert("Post must have a title and content.");
       return;
     }
 
-    // 2. Create the final object using the ID from useParams
     const finalPostData = {
       ...postToEdit,
-      id: parseInt(post_id) // This turns '2' into 2, or 'undefined' into NaN
+      id: parseInt(post_id)
     };
 
-    // 3. LOG THIS! If this says NaN or undefined, your useParams is empty
     console.log("Data being sent to manager:", finalPostData);
 
     try {
-      // 4. CRITICAL: Pass finalPostData, NOT postToEdit
       await updatePost(finalPostData);
-
       alert("Post updated successfully!");
       navigate(`/posts/${post_id}`);
     } catch (error) {
@@ -92,7 +96,7 @@ if (!post_id || post_id === "undefined") return;
           Title:
           <input
             type="text"
-            name="title" // Matches the state key
+            name="title"
             value={postToEdit.title || ""}
             onChange={handleInputChange}
             required
@@ -101,15 +105,15 @@ if (!post_id || post_id === "undefined") return;
       </fieldset>
 
       <fieldset>
-        <label>
-          Image URL:
-          <input
-            type="text"
-            name="image_url"
-            value={postToEdit.image_url}
-            onChange={handleInputChange}
-          />
-        </label>
+        <label>Header Image:</label>
+        <input
+          type="file"
+          accept="image/*"
+          onChange={handleImageUpload}
+        />
+        {postToEdit.image_url && (
+          <img src={postToEdit.image_url} alt="preview" style={{ width: "200px" }} />
+        )}
       </fieldset>
 
       <fieldset>

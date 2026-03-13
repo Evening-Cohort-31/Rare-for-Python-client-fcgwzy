@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { getAllUsers, updateUser } from "../../managers/userManager";
 import { useNavigate } from "react-router-dom";
-import { EditButton } from "../buttons/editButton.jsx";
+import { EditButton } from "../buttons/EditButton.jsx";
 import { DeactivationButton } from "../buttons/activation.jsx";
 
 export const UserList = ({ token }) => {
