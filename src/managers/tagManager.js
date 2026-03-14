@@ -3,8 +3,8 @@ export const getAllTags = () => {
         res.json())
 }
 
-export const createTag = (tagObject) => {
-    return fetch("http://localhost:8088/tags", {
+export const createTag = async (tagObject) => {
+    const res = await fetch("http://localhost:8088/tags", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -12,7 +12,7 @@ export const createTag = (tagObject) => {
         },
         body: JSON.stringify(tagObject)
     })
-    .then((res) => res.json())    
+    return await res.json()    
 }
 
 export const deleteTag = (tagId) => {
