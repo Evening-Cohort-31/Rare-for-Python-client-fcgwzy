@@ -2,11 +2,13 @@ import { useEffect, useState } from "react"
 import { useParams, useNavigate } from "react-router-dom"
 import { getUserById } from "../../managers/userManager"
 import { createSubscription, getAllSubscriptions, unsubscribe } from "../../managers/SubscriptionManager"
+import { getPostsByUserId } from "../../managers/PostManager"  
 
 export const UserDetail = ({ token }) => {
     const [user, setUser] = useState(null)
     const [subscriptions, setSubscriptions] = useState([])
-    const { userId }= useParams()
+    const [userPosts, setUserPosts] = useState([]) 
+    const { userId } = useParams()
     const navigate = useNavigate()
 
     const myId = parseInt(localStorage.getItem("token"))
@@ -21,6 +23,7 @@ export const UserDetail = ({ token }) => {
                 setUser(userData)
             })
             getAndSetSubscriptions()
+            getPostsByUserId(userId).then(setUserPosts) 
         }
     }, [token, userId])
 
@@ -43,20 +46,16 @@ export const UserDetail = ({ token }) => {
         }
     }
 
-
     const formatDate = (dateString) => {
         const date = new Date(dateString)
-
         const month = date.getMonth() + 1
         const day = date.getDate()
         const year = date.getFullYear()
-        
         let hours = date.getHours()
         const minutes = date.getMinutes().toString().padStart(2, '0')
         const ampm = hours >= 12 ? 'pm' : 'am'
         hours = hours % 12
-        hours = hours ? hours : 12 
-
+        hours = hours ? hours : 12
         return `${month}/${day}/${year} at ${hours}:${minutes}${ampm}`
     }
 
@@ -100,8 +99,9 @@ export const UserDetail = ({ token }) => {
                         <span className="field-label">Account Type</span>
                         <span className="field-value">{user.is_admin ? "Admin" : "Author"}</span>
                     </div>
+
                     {myId !== parseInt(userId) && (
-                        <button 
+                        <button
                             className={activeSub ? "unsubscribe-btn" : "subscribe-btn"}
                             onClick={handleToggleSubscription}
                         >
@@ -109,6 +109,26 @@ export const UserDetail = ({ token }) => {
                         </button>
                     )}
                 </div>
+            </div>
+
+            {/* Showing Users posts */}
+            <div className="user-posts-section">
+                <h3>{user.first_name}'s Posts</h3>
+                {userPosts.length === 0 ? (
+                    <p>This user has no posts yet.</p>
+                ) : (
+                    userPosts.map(post => (
+                        <div
+                            key={post.post_id}
+                            className="user-post-item"
+                            onClick={() => navigate(`/posts/${post.post_id}`)}
+                            style={{ cursor: "pointer" }}
+                        >
+                            <strong>{post.title}</strong>
+                            <span> — {post.publication_date}</span>
+                        </div>
+                    ))
+                )}
             </div>
         </div>
     )
