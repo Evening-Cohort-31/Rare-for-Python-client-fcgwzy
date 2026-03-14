@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import { getUserById, updateUser } from "../../managers/userManager"
-import { SaveButton } from "../buttons/SaveButton.jsx"
-import { CancelButton } from "../buttons/CancelButton.jsx"
+import { SaveButton } from "../buttons/saveButton.jsx"
+import { CancelButton } from "../buttons/cancelButton.jsx"
 
 export const UserEditForm = () => {
     const [user, setUser] = useState(null)
