@@ -45,54 +45,96 @@ export const PostDetails = () => {
   console.log("Post Author ID:", authorId);
   console.log("Do they match?", isAuthor);
 
-  return (
-    <section className="post-details">
-      <header className="post-header">{post.title}</header>
-     <div>
-      {post.image_url && (
-        <img src={post.image_url} alt={post.title} style={{ width: "20%" }} />
-      )}
-    </div>
-      <div>
-        <div>
-          <span className="post-info"></span>
-          {post.content}
-        </div>
-        <div>
-          <span className="post-info">Date: </span>
-          {post.publication_date}
-          <span className="post-info">Author: </span>
-          <span
-            className="post-author-link"
-            onClick={() => navigate(`/users/${post.user_id}`)}
-            style={{ cursor: "pointer", textDecoration: "underline" }}
-          >
-            {post.author}
-          </span>
-        </div>
-      </div>
-      <div>
-        <span>Tags: </span>
-        {post.tags && post.tags.length > 0 ? (
-          post.tags.map((tag) => <span key={tag.id}>{tag.label}</span>)
-        ) : (
-          <span>No tags assigned</span>
+return (
+  <section className="section">
+    <div className="container">
+      <button className="button is-light mb-5" onClick={() => navigate("/posts")}>
+        ← Back to Posts
+      </button>
+
+      <div className="box">
+        {post.image_url && (
+          <div className="block has-text-centered">
+            <figure className="image is-inline-block">
+              <img 
+                src={post.image_url} 
+                alt={post.title} 
+                style={{ maxHeight: "300px", width: "auto" }} 
+              />
+            </figure>
+          </div>
         )}
-      </div>
-      {isAuthor ? (
-        <div>
-          <button onClick={() => navigate(`/posts/${post_id}/manage-tags`)}>
-            Manage Tags
-          </button>
-          <div>
-            <EditButton route={`/posts/${post_id}/edit`} />
+
+        <h1 className="title is-2">{post.title}</h1>
+
+        <div className="level">
+          <div className="level-left">
+            <div className="level-item">
+              <span className="has-text-grey mr-1">By:</span>
+              <span
+                className="has-text-link"
+                onClick={() => navigate(`/users/${post.user_id}`)}
+                style={{ cursor: "pointer", textDecoration: "underline" }}
+              >
+                {post.author}
+              </span>
+            </div>
+            <div className="level-item">
+              <span className="has-text-grey mr-1">Date:</span>
+              <span>{post.publication_date}</span>
+            </div>
           </div>
         </div>
-      ) : (
-        <div>Leave a Comment!</div>
-      )}
-      <CommentForm post_id={post_id} refreshComments={getAndSetComments} />{" "}
-      <CommentList comments={comments} onUpdateSuccess={getAndSetComments} />
-    </section>
-  );
+
+        <hr />
+
+        <div className="content is-medium">
+          {post.content}
+        </div>
+
+        <hr />
+
+        <div className="field is-grouped is-grouped-multiline">
+          <div className="control">
+            <span className="has-text-weight-bold mr-2">Tags:</span>
+            {post.tags && post.tags.length > 0 ? (
+              <div className="tags">
+                {post.tags.map((tag) => (
+                  <span key={tag.id} className="tag is-info is-light">
+                    {tag.label}
+                  </span>
+                ))}
+              </div>
+            ) : (
+              <span className="is-italic has-text-grey">No tags assigned</span>
+            )}
+          </div>
+        </div>
+
+        {isAuthor ? (
+          <div className="buttons mt-5">
+            <button 
+              className="button is-link is-outlined" 
+              onClick={() => navigate(`/posts/${post_id}/manage-tags`)}
+            >
+              Manage Tags
+            </button>
+            <EditButton route={`/posts/${post_id}/edit`} />
+          </div>
+        ) : (
+          <div className="notification is-light mt-5">
+            Leave a Comment!
+          </div>
+        )}
+      </div>
+
+      <div className="box has-background-white-ter">
+        <h3 className="title is-4">Comments</h3>
+        <CommentForm post_id={post_id} refreshComments={getAndSetComments} />
+        <hr />
+        <CommentList comments={comments} onUpdateSuccess={getAndSetComments} />
+      </div>
+    </div>
+  </section>
+);
 };
