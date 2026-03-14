@@ -50,51 +50,63 @@ export const MyProfile = ({ token }) => {
 
     return (
         <div className="my-profile-container">
-            <h2>My Profile</h2>
+            <h2 className="title is-4 has-text-centered">My Profile</h2>
 
-            <img
-                src={user.profile_image_url || "https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png"}
-                alt="avatar"
-                className="profile-avatar"
-            />
+            {/* CHANGED: wrapped in columns div and split into two column divs */}
+            <div className="columns">
 
-            <div>
-                <p><strong>Full Name:</strong> {user.first_name} {user.last_name}</p>
-                <p><strong>Display Name:</strong> @{user.username}</p>
-                <p><strong>Email:</strong> {user.email}</p>
-                <p><strong>Member Since:</strong> {formatDate(user.created_on)}</p>
-                <p><strong>Account Type:</strong> {user.is_admin ? "Admin" : "Author"}</p>
-                <p><strong>Subscribers:</strong> {subscriberCount}</p>
-            </div>
+                {/* CHANGED: left column - avatar, info, update avatar */}
+                <div className="column is-one-third has-text-centered">
+                    <img
+                        src={user.profile_image_url || "https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png"}
+                        alt="avatar"
+                        className="profile-avatar"
+                    />
 
-            <div>
-                <h3>Update Avatar</h3>
-                <input
-                    type="text"
-                    placeholder="Paste image URL here..."
-                    value={avatarUrl}
-                    onChange={(event) => setAvatarUrl(event.target.value)}
-                />
-                <button onClick={handleSave}>Save Avatar</button>
-            </div>
+                    <div className="box">
+                        <p><strong>Full Name:</strong> {user.first_name} {user.last_name}</p>
+                        <p><strong>Display Name:</strong> @{user.username}</p>
+                        <p><strong>Email:</strong> {user.email}</p>
+                        <p><strong>Member Since:</strong> {formatDate(user.created_on)}</p>
+                        <p><strong>Account Type:</strong> {user.is_admin ? "Admin" : "Author"}</p>
+                        <p><strong>Subscribers:</strong> {subscriberCount}</p>
+                    </div>
 
-            <div className="my-posts-section">
-                <h3>My Posts</h3>
-                {userPosts.length === 0 ? (
-                    <p>You have no posts yet.</p>
-                ) : (
-                    userPosts.map(post => (
-                        <div
-                            key={post.post_id}
-                            className="my-post-item"
-                            onClick={() => navigate(`/posts/${post.post_id}`)}
-                            style={{ cursor: "pointer" }}
-                        >
-                            <strong>{post.title}</strong>
-                            <span> — {post.publication_date}</span>
-                        </div>
-                    ))
-                )}
+                    <div className="box">
+                        <h3 className="title is-6">Update Avatar</h3>
+                        <input
+                            className="input mb-2"
+                            type="text"
+                            placeholder="Paste image URL here..."
+                            value={avatarUrl}
+                            onChange={(event) => setAvatarUrl(event.target.value)}
+                        />
+                        <button className="button is-success" onClick={handleSave}>Save Avatar</button>
+                    </div>
+                </div>
+
+                {/* CHANGED: right column - posts */}
+                <div className="column">
+                    <div className="box">
+                        <h3 className="title is-5">My Posts</h3>
+                        {userPosts.length === 0 ? (
+                            <p>You have no posts yet.</p>
+                        ) : (
+                            userPosts.map(post => (
+                                <div
+                                    key={post.post_id}
+                                    className="my-post-item"
+                                    onClick={() => navigate(`/posts/${post.post_id}`)}
+                                    style={{ cursor: "pointer" }}
+                                >
+                                    <strong>{post.title}</strong>
+                                    <span> — {post.publication_date}</span>
+                                </div>
+                            ))
+                        )}
+                    </div>
+                </div>
+
             </div>
         </div>
     )

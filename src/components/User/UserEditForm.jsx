@@ -22,20 +22,36 @@ export const UserEditForm = () => {
     if (!user) return <p>Loading...</p>
 
     return (
-        <div>
-            <h2>Edit User Type for {user.first_name} {user.last_name}</h2>
+        <div className="my-profile-container">
+            <h2 className="title is-4 has-text-centered">
+                Edit User Type for {user.first_name} {user.last_name}
+            </h2>
 
-            <label>User Type</label>
-            <select
-                value={user.is_admin}
-                onChange={(event) => setUser({ ...user, is_admin: parseInt(event.target.value) })}
-            >
-                <option value={0}>Author</option>
-                <option value={1}>Admin</option>
-            </select>
+            <div className="columns is-centered">
+                <div className="column is-one-third">
+                    <div className="box">
+                        <div className="field">
+                            <label className="label">User Type</label>
+                            <div className="control">
+                                <div className="select is-fullwidth">
+                                    <select
+                                        value={user.is_admin}
+                                        onChange={(event) => setUser({ ...user, is_admin: parseInt(event.target.value) })}
+                                    >
+                                        <option value={0}>Author</option>
+                                        <option value={1}>Admin</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
 
-            <SaveButton onClick={handleSave} />
-            <CancelButton onClick={() => navigate("/-1")} />
+                        <div className="buttons is-centered mt-4">
+                            <SaveButton onClick={handleSave} />
+                            <CancelButton onClick={() => navigate("/users")} />
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     )
 }
