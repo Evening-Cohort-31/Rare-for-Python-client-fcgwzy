@@ -5,8 +5,8 @@
 import { useNavigate } from "react-router-dom"
 import { useEffect, useState } from "react"
 import { getAllCategories, deleteCategory } from "../../managers/CategoryManager";
-import { EditButton } from "../buttons/EditButton.jsx"
-import { DeleteButton } from "../buttons/DeleteButton.jsx"
+import { EditButton } from "../buttons/EditButton";
+import { DeleteButton } from "../buttons/DeleteButton";
 
 const initialCategoryState = {
     id: 0,
