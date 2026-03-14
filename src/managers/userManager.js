@@ -30,7 +30,6 @@ export const updateUser = async (userId, userObj) => {
 
     if (!res.ok) {
         const text = await res.text()
-        console.log("API error response:", text)
         let message = "Request failed"
 
         try {
