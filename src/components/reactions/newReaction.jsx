@@ -57,12 +57,13 @@ export const ReactionForm = () => {
                     </div>
 
                     <div className="field">
-                        <label className="label">Reaction Image URL</label>
+                        <label className="label">Emoji (Type or use Win + . / Cmd + Ctrl + Space)</label>
                         <div className="control">
                             <input 
                                 className="input"
                                 type="text"
-                                name="emoji" // Matches the key in initialReactionState
+                                name="emoji"
+                                maxLength="2"
                                 placeholder="Paste reaction URL here..."
                                 value={newReaction.emoji}
                                 onChange={handleInputChange}
@@ -70,13 +71,7 @@ export const ReactionForm = () => {
                         </div>
                     </div>
 
-                    {/* PREVIEW: Helpful for the user to see the image before saving */}
-                    {newReaction.emoji && (
-                        <div className="mb-4">
-                            <p className="help">Preview:</p>
-                            <img src={newReaction.emoji} alt="preview" style={{ maxHeight: "50px" }} />
-                        </div>
-                    )}
+              
 
                     <div className="control">
                         <button type="submit" className="button is-success">
