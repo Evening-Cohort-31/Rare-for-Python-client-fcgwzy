@@ -78,21 +78,19 @@ export const NavBar = ({ token, setToken }) => {
                   }}
                 />
               ) : (
-                <div>
-                  <Link
-                    to="/register"
-                    className="button is-rounded mr-2"
-                    style={{ backgroundColor: "#51e2f5", borderColor: "#51e2f5", color: "#333" }}
-                  >
-                    Register
-                  </Link>
-                  <Link
-                    to="/login"
-                    className="button is-rounded"
-                    style={{ backgroundColor: "#ffa8b6", borderColor: "#ffa8b6", color: "#333" }}
-                  >
-                    Login
-                  </Link>
+                <div style={{ display: "flex", gap: "8px" }}>
+                  <button
+                    className="btn-flip register-btn"
+                    data-back="Join Us!"
+                    data-front="Register"
+                    onClick={() => navigate('/register')}
+                  />
+                  <button
+                    className="btn-flip"
+                    data-back="Welcome!"
+                    data-front="Login"
+                    onClick={() => navigate('/login')}
+                  />
                 </div>
               )}
             </div>
