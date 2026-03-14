@@ -93,3 +93,11 @@ export const searchPostsByTag = (tagLabel, userId) => {
     })
         .then(res => res.json())
 }
+export const getPostsByCategory = (categoryId) => {
+    return fetch(`http://localhost:8088/posts?category_id=${categoryId}`, {
+        headers: {
+            "Authorization": `Token ${localStorage.getItem("token")}`
+        }
+    })
+    .then(res => res.json())
+}

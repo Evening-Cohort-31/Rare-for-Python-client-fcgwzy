@@ -21,6 +21,7 @@ import { MyProfile } from "../components/User/MyProfile"
 import { ReactionList } from "../components/reactions/ReactionList"
 import { ReactionForm } from "../components/reactions/newReaction"
 import { EditReactionForm } from "../components/reactions/EditReactionForm"
+import { SubscribedPosts } from "../components/posts/SubscribedPosts"  // ⬅️ add this
 
 export const ApplicationViews = ({ token, setToken }) => {
   return <>
@@ -31,6 +32,7 @@ export const ApplicationViews = ({ token, setToken }) => {
         <Route path="/posts" element={<PostList />} />
         <Route path="/" element={<PostList />} />
         <Route path="/myposts" element={<MyPosts token={token} />} />
+        <Route path="/subscribed" element={<SubscribedPosts token={token} />} />  {/* ⬅️ add this */}
         <Route path="/categories" element={<CategoryList />} />
         <Route path="/newcategory" element={<CategoryForm />} />
         <Route path="/tags" element={<TagList />} />

@@ -128,6 +128,7 @@ export const NavBar = ({ token, setToken }) => {
                 </div>
               )}
 
+              <Link to="/subscribed" className="navbar-item">Subscribed Posts</Link>
               <Link to="/profile" className="navbar-item">My Profile</Link>
             </>
           )}

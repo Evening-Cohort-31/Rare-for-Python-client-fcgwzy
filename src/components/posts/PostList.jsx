@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react"
 import { useLocation } from "react-router-dom"
-import { getAllPosts, getSubscribedPosts, updatePost, searchPosts } from "../../managers/PostManager";
+import { getAllPosts, getSubscribedPosts, updatePost, searchPosts, searchPostsByTag, getPostsByCategory } from "../../managers/PostManager";
 import { useNavigate, useParams } from "react-router-dom";
 import { SearchBar } from "../SearchBar/SearchBar.jsx"
-import { searchPostsByTag } from "../../managers/PostManager.js";
+import { getAllCategories } from "../../managers/CategoryManager";
+
 
 export const PostList = () => {
+    const [categories, setCategories] = useState([])
     const [subscribedPosts, setSubscribedPosts] = useState([])
     const location = useLocation()
     const myId = parseInt(localStorage.getItem("token"))
@@ -30,6 +32,19 @@ export const PostList = () => {
     useEffect(() => {
         setDisplayedPosts(posts)
     }, [posts])
+
+    useEffect(() => {
+        getAllCategories().then(setCategories)
+    }, [])
+
+const handleFilter = (e) => {
+    const categoryId = e.target.value
+    if (categoryId === "0") {
+        getAllPosts().then(setPosts)
+    } else {
+        getPostsByCategory(categoryId).then(setPosts)
+    }
+}
 
 const handleSearch = async (query) => {
     const postsByTitle = await searchPosts(query, myId)
@@ -88,6 +103,10 @@ const handleApprovalToggle = (post) => {
         <div className="posts-container">
             <h2>Posts</h2>
             <SearchBar onSearch={handleSearch} />
+            <select onChange={handleFilter}>
+                <option value="0">All Categories</option>
+                {categories.map(cat => <option key={cat.id} value={cat.id}>{cat.label}</option>)}
+            </select>
             <div className="posts-list">
                 {
                     displayedPosts.map(post => {

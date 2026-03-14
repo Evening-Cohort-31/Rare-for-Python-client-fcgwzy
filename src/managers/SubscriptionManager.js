@@ -20,9 +20,8 @@ export const getAllSubscriptions = () => {
 
 export const unsubscribe = (subscriptionId) => {
     return fetch(`http://localhost:8088/subscriptions/${subscriptionId}`, {
-        method: "PUT",
+        method: "DELETE",
         headers: {
-            "Content-Type": "application/json",
             "Authorization": `Token ${localStorage.getItem("token")}`
         }
     })
