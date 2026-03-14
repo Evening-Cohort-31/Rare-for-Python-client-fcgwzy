@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { getPostById } from "../../managers/PostManager";
-import { EditButton } from "../buttons/editButton.jsx"
+import { EditButton } from "../buttons/EditButton.jsx"
 import { CommentForm } from "../comments/newComment";
 import { CommentList } from "../comments/commentList";
 import { getAllCommentsForPost } from "../../managers/CommentManager";
@@ -48,10 +48,11 @@ export const PostDetails = () => {
   return (
     <section className="post-details">
       <header className="post-header">{post.title}</header>
-      <div>
-        <span className="post-info"></span>
-        {post.image_url}
-      </div>
+     <div>
+      {post.image_url && (
+        <img src={post.image_url} alt={post.title} style={{ width: "20%" }} />
+      )}
+    </div>
       <div>
         <div>
           <span className="post-info"></span>
