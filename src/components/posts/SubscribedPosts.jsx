@@ -10,25 +10,48 @@ export const SubscribedPosts = ({ token }) => {
         getSubscribedPosts(token).then(setSubscribedPosts)
     }, [token])
 
-    return (
-        <div className="subscribed-posts-container">
-            <h2>Subscribed Posts</h2>
-            {subscribedPosts.length === 0 ? (
-                <p>You are not subscribed to any users yet.</p>
-            ) : (
-                subscribedPosts.map(post => (
-                    <div
-                        key={post.id}
-                        className="subscribed-post-item"
-                        onClick={() => navigate(`/posts/${post.id}`)}
-                        style={{ cursor: "pointer" }}
-                    >
-                        <strong>{post.title}</strong>
-                        <span> — {post.username}</span>
-                        <span> — {post.publication_date}</span>
+return (
+        <section className="section">
+            <div className="container">
+                <h2 className="title">Subscribed Posts</h2>
+                
+                {subscribedPosts.length === 0 ? (
+                    <div className="notification is-light">
+                        <p>You are not subscribed to any users yet.</p>
                     </div>
-                ))
-            )}
-        </div>
+                ) : (
+                    <div className="columns is-multiline">
+                        {subscribedPosts.map(post => (
+                            <div key={post.id} className="column is-12">
+                                <article 
+                                    className="box media" 
+                                    onClick={() => navigate(`/posts/${post.id}`)}
+                                    style={{ cursor: "pointer" }}
+                                >
+                                    <div className="media-content">
+                                        <div className="content">
+                                            <p>
+                                                <strong className="is-size-4 has-text-link">
+                                                    {post.title}
+                                                </strong>
+                                                <br />
+                                                <small className="has-text-grey">
+                                                    @{post.username} — {post.publication_date}
+                                                </small>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div className="media-right is-vcentered">
+                                        <span className="icon has-text-grey-light">
+                                            <i className="fas fa-chevron-right"></i>
+                                        </span>
+                                    </div>
+                                </article>
+                            </div>
+                        ))}
+                    </div>
+                )}
+            </div>
+        </section>
     )
 }

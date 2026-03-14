@@ -99,53 +99,77 @@ const handleApprovalToggle = (post) => {
     })
 }
 
-    return (
-        <div className="posts-container">
-            <h2>Posts</h2>
-            <SearchBar onSearch={handleSearch} />
-            <select onChange={handleFilter}>
-                <option value="0">All Categories</option>
-                {categories.map(cat => <option key={cat.id} value={cat.id}>{cat.label}</option>)}
-            </select>
-            <div className="posts-list">
-                {
-                    displayedPosts.map(post => {
-                        return <section key={`all-post-${post.id}`} className="post">
-                            <div className="post-title" onClick={() => navigate(`posts/${post.id}`)}>{post.title}</div>
-                            <div className="post-author">{post.author}</div>
-                            <div className="post-category">{post.category}</div>
-                            <div className="post-approval">
-                                                {isAdmin && (
-                                                    <label>
-                                                        Approved
-                                                        <input
-                                                            type="checkbox"
-                                                            checked={post.approved === 1}
-                                                            onChange={() => handleApprovalToggle(post)}
-                                                        />
-                                                    </label>
-                                                )}
-                                            </div>
-                        </section>
-                    })
-                }
+return (
+    <div className="container">
+        <h2 className="title">Posts</h2>
+        <SearchBar onSearch={handleSearch} />
+        
+        <div className="field">
+            <div className="control">
+                <div className="select">
+                    <select onChange={handleFilter}>
+                        <option value="0">All Categories</option>
+                        {categories.map(cat => (
+                            <option key={cat.id} value={cat.id}>{cat.label}</option>
+                        ))}
+                    </select>
+                </div>
             </div>
-            {isHomepage && (
-                <>
-                    <h2>Subscribed Posts</h2>
-                    <div className="subposts-list">
-                        {
-                            subscribedPosts.map(post => {
-                                return <section key={`sub-post-${post.id}`} className="post">
-                                    <div className="post-title" onClick={() => navigate(`posts/${post.id}`)}>{post.title}</div>
-                                    <div className="post-author">{post.author}</div>
-                                    <div className="post-category">{post.category}</div>
-                                </section>
-                            })
-                        }
-                    </div>
-                </>
-            )}
         </div>
-    )
-}
+
+        <div className="columns is-multiline">
+            <div className="column is-full">
+                <div className="posts-list">
+                    {displayedPosts.map(post => (
+                        <div key={`all-post-${post.id}`} className="box post mb-4">
+                            <div 
+                                className="post-title is-size-4 has-text-link" 
+                                style={{ cursor: "pointer" }}
+                                onClick={() => navigate(`posts/${post.id}`)}
+                            >
+                                {post.title}
+                            </div>
+                            <div className="post-author has-text-purple">{post.author}</div>
+                            <div className="post-category tag is-info is-light">{post.category}</div>
+                            
+                            {isAdmin && (
+                                <div className="post-approval mt-2">
+                                    <label className="checkbox">
+                                        <input
+                                            type="checkbox"
+                                            className="mr-2"
+                                            checked={post.approved === 1}
+                                            onChange={() => handleApprovalToggle(post)}
+                                        />
+                                        Approved
+                                    </label>
+                                </div>
+                            )}
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </div>
+
+        {isHomepage && (
+            <div className="mt-6">
+                <h2 className="title">Subscribed Posts</h2>
+                <div className="subposts-list">
+                    {subscribedPosts.map(post => (
+                        <div key={`sub-post-${post.id}`} className="box post mb-4">
+                            <div 
+                                className="post-title is-size-4 has-text-link" 
+                                style={{ cursor: "pointer" }}
+                                onClick={() => navigate(`posts/${post.id}`)}
+                            >
+                                {post.title}
+                            </div>
+                            <div className="post-author has-text-purple">{post.author}</div>
+                            <div className="post-category tag is-info is-light">{post.category}</div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        )}
+    </div>
+)}

@@ -1,41 +1,68 @@
-.my-profile-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto;
-    max-width: 600px;
-    padding: 2rem;
-    text-align: center;
-}
-
-.my-profile-container img {
-    margin-bottom: 1rem;
-}
-
-.my-profile-container h2 {
-    margin-bottom: 1rem;
-}
-
-.my-profile-container div {
-    margin-bottom: 1rem;
-}
-
-.my-profile-container input {
-    width: 100%;
-    padding: 0.5rem;
-    margin-bottom: 1rem;
-}
-
-.my-profile-container button {
-    padding: 0.5rem 1rem;
-    cursor: pointer;
-}
-
-.profile-avatar {
-    width: 100px;
-    height: 100px;
+.card-avatar {
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
     object-fit: cover;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
+}
+:root {
+  --bright-blue: #51e2f5;
+  --blue-green: #9df9ef;
+  --dusty-white: #edf7f6;
+  --pink-sand: #ffa8b6;
+  --dark-sand: #a28089;
+}
+
+.button.is-primary {
+  background-color: #51e2f5 !important;
+  border-color: #51e2f5 !important;
+  color: #333 !important;
+}
+
+.button.is-danger {
+  background-color: #ffa8b6 !important;
+  border-color: #ffa8b6 !important;
+  color: #333 !important;
+}
+
+.button.is-warning {
+  background-color: #edf7f6 !important;
+  border-color: #edf7f6 !important;
+  color: #333 !important;
+}
+
+.button.is-success {
+  background-color: #9df9ef !important;
+  border-color: #9df9ef !important;
+  color: #333 !important;
+}
+
+.button.is-link {
+  background-color: #a28089 !important;
+  border-color: #a28089 !important;
+  color: #333 !important;
+}
+
+.tag.is-link {
+  background-color: #a28089 !important;
+  border-color: #a28089 !important;
+  color: #fff !important;
+}
+
+.tag.is-info {
+  background-color: #51e2f5 !important;
+  border-color: #51e2f5 !important;
+  color: #333 !important;
+}
+
+.card .tag.is-success {
+  background-color: #9df9ef !important;
+  border-color: #9df9ef !important;
+  color: #333 !important;
+}
+
+.card .tag.is-link {
+  background-color: #a28089 !important;
+  border-color: #a28089 !important;
+  color: #fff !important;
 }

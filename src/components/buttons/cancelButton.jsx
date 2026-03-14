@@ -1,10 +1,9 @@
 import "./button.css";
-import { useNavigate } from "react-router-dom";
 
-export const CancelButton = () => {
-
-  const cancelConfirmation = () => {
-    
-  };
-  return <button className="cancel-btn" onClick={cancelConfirmation}>Cancel</button>;
+export const CancelButton = ({ onClick }) => {
+  return (
+    <button className="button is-white is-rounded" onClick={onClick}>
+      Cancel
+    </button>
+  );
 };
