@@ -4,7 +4,6 @@ import { getAllTags } from "../../managers/tagManager"
 import { getPostById, updatePostTags } from "../../managers/PostManager"
 
 
-
 export const ManageTags = () => {
     const { post_id } = useParams()
     const navigate = useNavigate()
@@ -31,31 +30,54 @@ export const ManageTags = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-
         updatePostTags(post_id, selectedTagIds).then(() => navigate(`/posts/${post_id}`))
     }
 
-    return <div>
-                <section>
-                    <h2>Tags</h2>
+    return (
+        <section className="section">
+            <div className="container">
+                <div className="columns is-centered">
+                    <div className="column is-half">
+                        <nav className="panel is-primary">
+                            <p className="panel-heading">
+                                Manage Tags
+                            </p>
+                            
+                            <form onSubmit={handleSubmit}>
+                                {allTags.map(tag => (
+                                    <label key={tag.id} className="panel-block">
+                                        <input
+                                            type="checkbox"
+                                            className="mr-3"
+                                            checked={selectedTagIds.includes(tag.id)}
+                                            onChange={() => handleCheckboxChange(tag.id)}
+                                        />
+                                        {tag.label}
+                                    </label>
+                                ))}
 
-                    <form onSubmit={handleSubmit}>
-                        {allTags.map(tag => (
-                            <div key={tag.id}>
-                                <label>
-                                    <input
-                                        type = "checkbox"
-                                        checked={selectedTagIds.includes(tag.id)}
-                                        onChange={() => handleCheckboxChange(tag.id)}
-                                    />
-                                    {tag.label}
-                                </label>
-                            </div>
-                        ))}
-
-                        <button type="submit">Save</button>
-                    </form>
-
-                </section>
-    </div>
+                                <div className="panel-block">
+                                    <button 
+                                        type="submit" 
+                                        className="button is-primary is-fullwidth"
+                                    >
+                                        Save Changes
+                                    </button>
+                                </div>
+                                <div className="panel-block">
+                                    <button 
+                                        type="button" 
+                                        className="button is-light is-fullwidth"
+                                        onClick={() => navigate(`/posts/${post_id}`)}
+                                    >
+                                        Cancel
+                                    </button>
+                                </div>
+                            </form>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </section>
+    )
 }
