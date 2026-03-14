@@ -68,56 +68,100 @@ export const PostForm = ({ token }) => {
     });
   };
 
-  return (
-    <form className="post-add-form" onSubmit={handleSubmit}>
-      <h2>Create New Post</h2>
+ return (
+    <section className="section">
+        <div className="container">
+            <div className="columns is-centered">
+                <div className="column is-two-thirds">
+                    <form className="box" onSubmit={handleSubmit}>
+                        <h2 className="title is-3">Create New Post</h2>
 
-      <label htmlFor="title">Title</label>
-      <input
-        type="text"
-        id="title"
-        name="title"
-        value={newPost.title}
-        placeholder="Post title"
-        onChange={handleInputChange}
-      />
+                        <div className="field">
+                            <label className="label" htmlFor="title">Title</label>
+                            <div className="control">
+                                <input
+                                    className="input"
+                                    type="text"
+                                    id="title"
+                                    name="title"
+                                    value={newPost.title}
+                                    placeholder="Post title"
+                                    onChange={handleInputChange}
+                                />
+                            </div>
+                        </div>
 
-      <label htmlFor="category_id">Category</label>
-      <select
-        id="category_id"
-        name="category_id"
-        value={newPost.category_id}
-        onChange={handleInputChange}
-      >
-        <option value={0}>Select a category</option>
-        {categories.map((category) => (
-          <option key={category.id} value={category.id}>
-            {category.label}
-          </option>
-        ))}
-      </select>
+                        <div className="field">
+                            <label className="label" htmlFor="category_id">Category</label>
+                            <div className="control">
+                                <div className="select is-fullwidth">
+                                    <select
+                                        id="category_id"
+                                        name="category_id"
+                                        value={newPost.category_id}
+                                        onChange={handleInputChange}
+                                    >
+                                        <option value={0}>Select a category</option>
+                                        {categories.map((category) => (
+                                            <option key={category.id} value={category.id}>
+                                                {category.label}
+                                            </option>
+                                        ))}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
 
-      <label htmlFor="image_upload">Header Image</label>
-      <input
-        type="file"
-        id="image_upload"
-        accept="image/*"
-        onChange={handleImageUpload}
-      />
-      {newPost.image_url && (
-        <img src={newPost.image_url} alt="preview" style={{ width: "200px" }} />
-      )}
+                        <div className="field">
+                            <label className="label" htmlFor="image_upload">Header Image</label>
+                            <div className="control">
+                                <div className="file has-name is-fullwidth">
+                                    <label className="file-label">
+                                        <input
+                                            className="file-input"
+                                            type="file"
+                                            id="image_upload"
+                                            accept="image/*"
+                                            onChange={handleImageUpload}
+                                        />
+                                        <span className="file-cta">
+                                            <span className="file-label">Choose a file…</span>
+                                        </span>
+                                    </label>
+                                </div>
+                            </div>
+                            {newPost.image_url && (
+                                <figure className="image mt-3" style={{ width: "200px" }}>
+                                    <img src={newPost.image_url} alt="preview" />
+                                </figure>
+                            )}
+                        </div>
 
-      <label htmlFor="content">Content</label>
-      <textarea
-        id="content"
-        name="content"
-        value={newPost.content}
-        placeholder="Write your post..."
-        onChange={handleInputChange}
-      />
-
-      <button type="submit">Save</button>
-    </form>
-  );
-};
+                        <div className="field">
+                            <label className="label" htmlFor="content">Content</label>
+                            <div className="control">
+                                <textarea
+                                    className="textarea"
+                                    id="content"
+                                    name="content"
+                                    value={newPost.content}
+                                    placeholder="Write your post..."
+                                    onChange={handleInputChange}
+                                />
+                            </div>
+                        </div>
+                        
+                        <div className="field mt-5">
+                            <div className="control">
+                                <button className="button is-link is-fullwidth" type="submit">
+                                    Save
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+);
+}
