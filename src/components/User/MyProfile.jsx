@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { getUserById, updateUserAvatar } from "../../managers/userManager"
+import { getPostsByUserId } from "../../managers/PostManager"  
 import "./MyProfile.css"
 
 export const MyProfile = ({ token }) => {
     const [user, setUser] = useState(null)
     const [avatarUrl, setAvatarUrl] = useState("")
+    const [userPosts, setUserPosts] = useState([]) 
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -14,6 +16,7 @@ export const MyProfile = ({ token }) => {
                 setUser(userData)
                 setAvatarUrl(userData.profile_image_url || "")
             })
+            getPostsByUserId(token).then(setUserPosts) 
         }
     }, [token])
 
@@ -60,6 +63,26 @@ export const MyProfile = ({ token }) => {
                     onChange={(event) => setAvatarUrl(event.target.value)}
                 />
                 <button onClick={handleSave}>Save Avatar</button>
+            </div>
+
+            
+            <div className="my-posts-section">
+                <h3>My Posts</h3>
+                {userPosts.length === 0 ? (
+                    <p>You have no posts yet.</p>
+                ) : (
+                    userPosts.map(post => (
+                        <div
+                            key={post.post_id}
+                            className="my-post-item"
+                            onClick={() => navigate(`/posts/${post.post_id}`)}
+                            style={{ cursor: "pointer" }}
+                        >
+                            <strong>{post.title}</strong>
+                            <span> — {post.publication_date}</span>
+                        </div>
+                    ))
+                )}
             </div>
         </div>
     )
