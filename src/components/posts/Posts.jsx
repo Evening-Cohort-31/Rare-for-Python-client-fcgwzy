@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { getPostById } from "../../managers/PostManager";
-import { EditButton } from "../buttons/EditButton.jsx"
+import { EditButton } from "../buttons/editButton.jsx"
 import { CommentForm } from "../comments/newComment";
 import { CommentList } from "../comments/commentList";
 import { getAllCommentsForPost } from "../../managers/CommentManager";
