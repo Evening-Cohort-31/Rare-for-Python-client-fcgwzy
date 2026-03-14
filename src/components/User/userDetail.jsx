@@ -11,7 +11,8 @@ export const UserDetail = ({ token }) => {
     const { userId } = useParams()
     const navigate = useNavigate()
 
-    const myId = parseInt(localStorage.getItem("token"))
+    const myId = parseInt(localStorage.getItem("auth_token"))
+    const isAdmin = localStorage.getItem("is_admin") === "1" 
 
     const getAndSetSubscriptions = () => {
         getAllSubscriptions().then(setSubscriptions)
@@ -65,7 +66,7 @@ export const UserDetail = ({ token }) => {
 
     return (
         <div className="user-detail-container">
-            <button onClick={() => navigate("/users")}>← Back to Users</button>
+            <button onClick={() => navigate(isAdmin ? "/users" : "/")}>← Back</button>
 
             <div className="user-profile-card">
                 <img
@@ -111,7 +112,6 @@ export const UserDetail = ({ token }) => {
                 </div>
             </div>
 
-            {/* Showing Users posts */}
             <div className="user-posts-section">
                 <h3>{user.first_name}'s Posts</h3>
                 {userPosts.length === 0 ? (
