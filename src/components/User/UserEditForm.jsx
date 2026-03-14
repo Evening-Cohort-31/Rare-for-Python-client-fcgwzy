@@ -13,11 +13,15 @@ export const UserEditForm = () => {
         getUserById(userId).then(setUser)
     }, [userId])
 
-    const handleSave = () => {
-        updateUser(userId, user).then(() => {
-            navigate("/users")
-        })
-    }
+    const handleSave = async () => {
+        try {
+            await updateUser(userId, user)
+                navigate("/users")
+            } catch (err) {
+                alert(err.message)
+            }            
+        }
+    
 
     if (!user) return <p>Loading...</p>
 
