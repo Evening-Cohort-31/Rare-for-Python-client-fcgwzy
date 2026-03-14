@@ -18,8 +18,8 @@ export const getUserById = async (userId) => {
     return await res.json()
 }
 
-export const updateUser = (userId, userObj) => {
-    return fetch(`${Url}/users/${userId}`, {
+export const updateUser = async (userId, userObj) => {
+    const res = await fetch(`${Url}/users/${userId}`, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json",
@@ -27,6 +27,26 @@ export const updateUser = (userId, userObj) => {
         },
         body: JSON.stringify(userObj)
     })
+
+    if (!res.ok) {
+        const text = await res.text()
+        let message = "Request failed"
+
+        try {
+            const data = JSON.parse(text)
+            message = 
+                data.error || 
+                data.message ||
+                text ||
+                message
+                
+        } catch {
+            message = text || message
+        }
+        throw new Error(message)        
+    }
+
+    return res
 }
 
 export const updateUserAvatar = (userId, avatarUrl) => {

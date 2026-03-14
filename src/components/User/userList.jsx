@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { getAllUsers, updateUser } from "../../managers/userManager";
 import { useNavigate } from "react-router-dom";
+import { EditButton } from "../buttons/editButton.jsx";
+import { DeactivationButton } from "../buttons/activation.jsx";
 
 export const UserList = ({ token }) => {
   const [users, setUsers] = useState([]);
@@ -40,15 +42,15 @@ export const UserList = ({ token }) => {
         active: user.active ? 0 : 1,
       };
 
-      const response = await updateUser(userId, updatedUser);
-
-      if (response.ok || response.status === 204) {
-        getAndSetUsers();
-      } else {
-        console.error("Failed to update user status");
+      try {
+        await updateUser(userId, updatedUser)
+        getAndSetUsers()
+      } catch (err) {
+        alert(err.message)
+      }
       }
     }
-  };
+  
 
   return (
     <div className="my-profile-container">
