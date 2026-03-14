@@ -13,6 +13,8 @@ export const NavBar = ({ token, setToken }) => {
     navbar.current.classList.toggle('is-active')
   }
 
+  const isAdmin = localStorage.getItem("is_admin") === "1"
+
   return (
     <nav className="navbar is-dark mb-3" role="navigation" aria-label="main navigation">
       <div className="navbar-brand">
@@ -46,12 +48,14 @@ export const NavBar = ({ token, setToken }) => {
               <Link to="/subscribed" className="navbar-item has-text-white">Subscribed</Link>
               <Link to="/profile" className="navbar-item has-text-white">My Profile</Link>
 
-              {localStorage.getItem("is_admin") === "1" && (
+              {isAdmin && (
                 <div className="navbar-item has-dropdown is-hoverable">
                   <a className="navbar-link has-text-white">Manage</a>
                   <div className="navbar-dropdown">
                     <Link to="/categories" className="navbar-item">Categories</Link>
                     <Link to="/tags" className="navbar-item">Tags</Link>
+                    <Link to="/reactions" className="navbar-item">Reactions</Link>
+                    <hr className="navbar-divider" />
                     <Link to="/users" className="navbar-item">Users</Link>
                   </div>
                 </div>
@@ -68,13 +72,11 @@ export const NavBar = ({ token, setToken }) => {
                   className="btn-flip"
                   data-back="Bye!"
                   data-front="Logout"
-                  style={{ borderColor: "#ffa8b6", color: "blue" }}
                   onClick={() => {
                     setToken('')
                     navigate('/login')
                   }}
-                >
-                </button>
+                />
               ) : (
                 <div>
                   <Link

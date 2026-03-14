@@ -18,6 +18,9 @@ import { UserList } from "../components/User/userList"
 import { UserDetail } from "../components/User/userDetail"
 import { UserEditForm } from "../components/User/UserEditForm"
 import { MyProfile } from "../components/User/MyProfile"
+import { ReactionList } from "../components/reactions/ReactionList"
+import { ReactionForm } from "../components/reactions/newReaction"
+import { EditReactionForm } from "../components/reactions/EditReactionForm"
 import { SubscribedPosts } from "../components/posts/SubscribedPosts"  // ⬅️ add this
 
 export const ApplicationViews = ({ token, setToken }) => {
@@ -34,7 +37,9 @@ export const ApplicationViews = ({ token, setToken }) => {
         <Route path="/newcategory" element={<CategoryForm />} />
         <Route path="/tags" element={<TagList />} />
         <Route path="/edit-tag/:tagId" element={<EditTagForm />} />
-        <Route path="/newtag" element={<TagForm />} />
+        <Route path="/reactions" element={<ReactionList />} />
+        <Route path="/newreaction" element={<ReactionForm />} />
+        <Route path="/edit-reaction/:reactionId" element={<EditReactionForm />} />
         <Route path="/posts/:post_id" element={<PostDetails token={token} />} />
         <Route path="/posts/:post_id/edit" element={<EditPost />} />
         <Route path="/posts/:post_id/manage-tags" element={<ManageTags />} />
