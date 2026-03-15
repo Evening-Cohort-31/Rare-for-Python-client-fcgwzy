@@ -42,15 +42,15 @@ export const UserList = ({ token }) => {
         active: user.active ? 0 : 1,
       };
 
-      const response = await updateUser(userId, updatedUser);
-
-      if (response.ok || response.status === 204) {
-        getAndSetUsers();
-      } else {
-        console.error("Failed to update user status");
+      try {
+        await updateUser(userId, updatedUser)
+        getAndSetUsers()
+      } catch (err) {
+        alert(err.message)
+      }
       }
     }
-  };
+  
 
   return (
     <div className="my-profile-container">
