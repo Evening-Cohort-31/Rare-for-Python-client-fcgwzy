@@ -129,8 +129,8 @@ return (
                             >
                                 {post.title}
                             </div>
-                            <div className="post-author has-text-purple">{post.author}</div>
-                            <div className="post-category tag is-info is-light">{post.category}</div>
+                            <div className="post-author has-text-grey">{post.author}</div>
+                            <div className="post-category tag is-info">{post.category}</div>
                             
                             {isAdmin && (
                                 <div className="post-approval mt-2">
@@ -164,7 +164,7 @@ return (
                             >
                                 {post.title}
                             </div>
-                            <div className="post-author has-text-purple">{post.author}</div>
+                            <div className="post-author has-text-grey">{post.author}</div>
                             <div className="post-category tag is-info is-light">{post.category}</div>
                         </div>
                     ))}

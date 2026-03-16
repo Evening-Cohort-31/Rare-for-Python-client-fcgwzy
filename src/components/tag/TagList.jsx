@@ -8,11 +8,12 @@ export const TagList = () => {
 
     const isAdmin = localStorage.getItem("is_admin") === "1"
 
-        useEffect(() => {
-            getAllTags().then((tagData) => {
-                setTags(tagData)
-            })
-        }, [])
+    useEffect(() => {
+        getAllTags().then((tagData) => {
+            const sortedTags = tagData.sort((a, b) => a.label.localeCompare(b.label))
+            setTags(sortedTags)
+        })
+    }, [])
 
     const tagForm = () => {
         navigate("/newtag")
@@ -33,27 +34,57 @@ export const TagList = () => {
     }
     
     return (
-        <div className="tags-container">
-            <h2>Tags</h2>
-                <div className="tags-list">
-                        {
-                            
-                            tags.map(tag => {
-                                return <section key={`tag${tag.id}`} className="tag">
-                                    {isAdmin && (
-                                        <button onClick={() => handleEditTag(tag.id)}>Edit</button>
-                                    )}
-                                    {isAdmin && (
-                                        <button onClick={() => handleDelete(tag.id)}>Delete</button>
-                                    )}
-                                    <div className="tag-label">{tag.label}</div>
-                                </section>
-                            })
-                        }
+        <section className="section">
+            <div className="container">
+                <div className="level">
+                    <div className="level-left">
+                        <h2 className="title">Tags</h2>
+                    </div>
+                    <div className="level-right">
+                        <button className="button is-info" onClick={tagForm}>
+                            Create Tag
+                        </button>
+                    </div>
                 </div>
-            <button onClick={tagForm}>Create Tag</button>
-            
-        </div>
+
+                <div className="box">
+                    <table className="table is-fullwidth is-striped is-hoverable">
+                        <thead>
+                            <tr>
+                                <th>Label</th>
+                                {isAdmin && <th className="has-text-right">Actions</th>}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {tags.map(tag => (
+                                <tr key={`tag${tag.id}`}>
+                                    <td className="is-vcentered">
+                                        <span className="is-size-5">{tag.label}</span>
+                                    </td>
+                                    {isAdmin && (
+                                        <td className="has-text-right">
+                                            <div className="buttons is-right">
+                                                <button 
+                                                    className="button is-small is-link is-outlined" 
+                                                    onClick={() => handleEditTag(tag.id)}
+                                                >
+                                                    Edit
+                                                </button>
+                                                <button 
+                                                    className="button is-small is-danger is-outlined" 
+                                                    onClick={() => handleDelete(tag.id)}
+                                                >
+                                                    Delete
+                                                </button>
+                                            </div>
+                                        </td>
+                                    )}
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
     )
 }
-
