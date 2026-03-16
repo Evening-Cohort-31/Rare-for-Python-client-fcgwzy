@@ -52,7 +52,7 @@ export const PostForm = ({ token }) => {
       alert("Please enter content.");
       return;
     }
-    if (!newPost.category_id || newPost.category_id === 0) {
+    if (!newPost.category_id) {
       alert("Please select a category.");
       return;
     }
