@@ -1,5 +1,7 @@
+const API_URL = "http://localhost:8088"
+
 export const createReaction = async (reactionObj) => {
-  const res = await fetch("http://localhost:8088/reactions", {
+  const res = await fetch(`${API_URL}/reactions`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -11,7 +13,7 @@ export const createReaction = async (reactionObj) => {
 };
 
 export const getAllReactions = async () => {
-  const res = await fetch("http://localhost:8088/reactions");
+  const res = await fetch(`${API_URL}/reactions`);
     return await res.json();
 };
 
@@ -33,4 +35,21 @@ export const editReaction = (reaction) => {
         },
         body: JSON.stringify(reaction)
     })
+}
+
+export const addPostReaction = async (postReactionObj) => {
+  const res = await fetch(`${API_URL}/postreactions`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Token ${localStorage.getItem("auth_token")}`
+    },
+    body: JSON.stringify(postReactionObj)
+  });
+  return await res.json()
+}
+
+export const getReactionsForPost = async (postId) => {
+  const res = await fetch(`${API_URL}/postreactions?post_id=${postId}`);
+  return await res.json()
 }
