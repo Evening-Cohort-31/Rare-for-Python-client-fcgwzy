@@ -13,7 +13,8 @@ export const Login = ({ setToken }) => {
 
     const user = {
       username: username.current.value,
-      password: password.current.value    }
+      password: password.current.value
+    }
 
     loginUser(user).then(res => {
       console.log("Login Response:", res)
@@ -22,48 +23,80 @@ export const Login = ({ setToken }) => {
         localStorage.setItem("auth_token", res.token)
         localStorage.setItem("is_admin", res.is_admin)
         navigate("/")
-      } else if (res.valid && (res.active === 0 || res.active === false || res.active === "0")){
+      } else if (res.valid && (res.active === 0 || res.active === false || res.active === "0")) {
         alert("Your account has been deactivated. Please contact an admin to repeal.")
         setIsUnsuccessful(true)
-      }
-      else {
+      } else {
         setIsUnsuccessful(true)
       }
     })
   }
 
   return (
-    <section className="columns is-centered">
-      <form className="column is-two-thirds" onSubmit={handleLogin}>
-        <h1 className="title">Rare Publishing</h1>
-        <p className="subtitle">Please sign in</p>
+    <section className="hero is-fullheight">
+      <div className="hero-body">
+        <div className="container">
+          <div className="columns is-centered">
+            <div className="column is-one-third">
+              <div className="box">
+                <h1 className="title has-text-centered">Rare Publishing</h1>
+                <p className="subtitle has-text-centered">Please sign in</p>
 
-        <div className="field">
-          <label className="label">Username</label>
-          <div className="control">
-            <input className="input" type="text" ref={username} />
+                <form onSubmit={handleLogin}>
+                  <div className="field">
+                    <label className="label">Username</label>
+                    <div className="control">
+                      <input
+                        className="input is-rounded"
+                        type="text"
+                        placeholder="Enter your username"
+                        ref={username}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="field">
+                    <label className="label">Password</label>
+                    <div className="control">
+                      <input
+                        className="input is-rounded"
+                        type="password"
+                        placeholder="Enter your password"
+                        ref={password}
+                      />
+                    </div>
+                  </div>
+
+                  {isUnsuccessful && (
+                    <p className="help is-danger mb-3">Username or password not valid</p>
+                  )}
+
+                  <div className="field is-grouped is-grouped-centered mt-4">
+                    <div className="control">
+                      <button
+                        className="button is-rounded"
+                        style={{ backgroundColor: "#51e2f5", borderColor: "#51e2f5", color: "#333" }}
+                        type="submit"
+                      >
+                        Submit
+                      </button>
+                    </div>
+                    <div className="control">
+                      <Link
+                        to="/register"
+                        className="button is-rounded"
+                        style={{ backgroundColor: "#ffa8b6", borderColor: "#ffa8b6", color: "#333" }}
+                      >
+                        Register
+                      </Link>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
           </div>
         </div>
-
-        <div className="field">
-          <label className="label">Password</label>
-          <div className="control">
-            <input className="input" type="password" ref={password} />
-          </div>
-        </div>
-
-        <div className="field is-grouped">
-          <div className="control">
-            <button className="button is-link" type="submit" >Submit</button>
-          </div>
-          <div className="control">
-            <Link to="/register" className="button is-link is-light">Cancel</Link>
-          </div>
-        </div>
-        {
-          isUnsuccessful ? <p className="help is-danger">Username or password not valid</p> : ''
-        }
-      </form>
+      </div>
     </section>
   )
 }

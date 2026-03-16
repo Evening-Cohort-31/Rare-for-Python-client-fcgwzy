@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { getAllUsers, updateUser } from "../../managers/userManager";
 import { useNavigate } from "react-router-dom";
-import { EditButton } from "../buttons/EditButton.jsx";
+import { EditButton } from "../buttons/editButton.jsx";
 import { DeactivationButton } from "../buttons/activation.jsx";
 
 export const UserList = ({ token }) => {
@@ -67,43 +67,68 @@ export const UserList = ({ token }) => {
   
 
   return (
-    <div className="users-container">
-      <h2 className="users-header">User Profiles</h2>
+    <div className="my-profile-container">
+      <h2 className="title is-4 has-text-centered">User Profiles</h2>
 
       {users.length === 0 ? (
-        <p>No users found.</p>
+        <p className="has-text-centered">No users found.</p>
       ) : (
-        <div className="users-list">
+        <div className="columns is-multiline">
           {users.map((user) => (
-            <div
-              key={user.id}
-              className={`user-item ${!user.active ? "deactivated" : ""}`}
-            >
-              <span
-                className="user-name"
-                onClick={() => navigate(`/users/${user.id}`)}
-              >
-                {user.username}
-              </span>
-              <span
-                className="user-username"
-                onClick={() => navigate(`/users/${user.id}`)}
-              >
-                ... {user.first_name} {user.last_name}
-              </span>
-              <span
-                className="user-type"
-                onClick={() => navigate(`/users/${user.id}`)}
-              >
-                {user.is_admin ? " Admin" : " Author"}
-              </span>
+            <div key={user.id} className="column is-one-third">
+              <div className={`card ${!user.active ? "has-background-light" : ""}`}>
 
-              <div className="user-controls">
-                <EditButton route={`/users/${user.id}/edit`} />
-                <DeactivationButton
-                  user={user}
-                  onClick={() => handleToggleActive(user)}
-                />
+                {/* Card Header */}
+                <div className="card-header">
+                  <p
+                    className="card-header-title"
+                    style={{ cursor: "pointer" }}
+                    onClick={() => navigate(`/users/${user.id}`)}
+                  >
+                    {user.username}
+                  </p>
+                  <span className={`tag mt-3 mr-3 is-rounded ${user.is_admin ? "is-success" : "is-info"}`}>
+                    {user.is_admin ? "Admin" : "Author"}
+                  </span>
+                </div>
+
+                {/* Card Content */}
+                <div
+                  className="card-content has-text-centered"
+                  style={{ cursor: "pointer" }}
+                  onClick={() => navigate(`/users/${user.id}`)}
+                >
+                  <img
+                    src={user.profile_image_url || "https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png"}
+                    alt={`${user.first_name} ${user.last_name}`}
+                    className="card-avatar"
+                  />
+                  <p>
+                    <strong>Name: </strong>
+                    {user.first_name} {user.last_name}
+                  </p>
+                  <p>
+                    <strong>Status: </strong>
+                    {user.active ? "Active" : "Deactivated"}
+                  </p>
+                </div>
+
+                {/* Card Footer with buttons */}
+                <div className="card-footer">
+                  <button
+                    className="button is-warning is-small is-rounded card-footer-item"
+                    onClick={() => navigate(`/users/${user.id}/edit`)}
+                  >
+                    Edit
+                  </button>
+                  <button
+                    className={`button is-small is-rounded card-footer-item ${user.active ? "is-danger" : "is-info"}`}
+                    onClick={() => handleToggleActive(user)}
+                  >
+                    {user.active ? "Deactivate" : "Activate"}
+                  </button>
+                </div>
+
               </div>
             </div>
           ))}
