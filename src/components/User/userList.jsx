@@ -36,20 +36,34 @@ export const UserList = ({ token }) => {
       `Are you sure you want to ${action} this user's profile?`,
     );
 
-    if (confirmed) {
-      const updatedUser = {
-        ...user,
-        active: user.active ? 0 : 1,
-      };
+    if (!confirmed) return
 
+    const updatedUser = { ...user, active: user.active ? 0 : 1}
+    
+    try {
+      const res = await updateUser(userId, updatedUser)
+      
+      let data = {}
       try {
-        await updateUser(userId, updatedUser)
+        data = await res.json()
+      } catch {
+
+      }
+
+      if (data.pending) {
+        alert(data.message)
+      } else if (data.error) {
+        alert(data.error)
+      } else {
+        if (data.message){
+          alert(data.message)
+        }
         getAndSetUsers()
-      } catch (err) {
-        alert(err.message)
       }
-      }
+    } catch (err) {
+      alert(err.message)
     }
+  }
   
 
   return (

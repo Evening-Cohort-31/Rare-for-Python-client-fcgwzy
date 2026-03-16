@@ -13,14 +13,33 @@ export const UserEditForm = () => {
         getUserById(userId).then(setUser)
     }, [userId])
 
+ 
     const handleSave = async () => {
+        if (!user) return
+
         try {
-            await updateUser(userId, user)
+            const res = await updateUser(user.id, { is_admin: user.is_admin})
+
+            let data = {}
+            try {
+                data = await res.json()
+            } catch {
+
+            }
+
+            if (data.pending) {
+                alert(data.message)
                 navigate("/users")
-            } catch (err) {
-                alert(err.message)
-            }            
+            } else if (data.error) {
+                alert(data.error)
+            } else {
+                alert("User updated successfully!")
+                navigate("/users")
+            }
+        } catch (err) {
+            alert(err.message)
         }
+    }
     
 
     if (!user) return <p>Loading...</p>
