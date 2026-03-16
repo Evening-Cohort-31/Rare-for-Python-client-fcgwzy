@@ -13,7 +13,7 @@ export const PostList = () => {
     const myId = parseInt(localStorage.getItem("token"))
     const isHomepage = location.pathname === "/"
     const [posts, setPosts] = useState([])
-    const [displayedPosts, setDisplayedPosts] = useState([])  // ⬅️ add this
+    const [displayedPosts, setDisplayedPosts] = useState([])
     const { post_id } = useParams();
     const isAdmin = localStorage.getItem("is_admin") === "1"
     const navigate = useNavigate();
@@ -21,7 +21,7 @@ export const PostList = () => {
     useEffect(() => {
         getAllPosts().then((data) => {
             setPosts(data)
-            setDisplayedPosts(data)  // ⬅️ add this
+            setDisplayedPosts(data) 
         })
 
         if (isHomepage) {

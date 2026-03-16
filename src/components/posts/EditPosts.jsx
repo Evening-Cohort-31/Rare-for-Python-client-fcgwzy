@@ -46,7 +46,7 @@ export const EditPost = () => {
     const file = event.target.files[0]
     if (!file) return
 
-    const reader = new FileReader()
+    const reader = new FileReader()// FileReader is a built in browser tool that can read files
     reader.onloadend = () => {
         setPostToEdit((prevState) => ({
             ...prevState,
@@ -63,18 +63,17 @@ export const EditPost = () => {
     });
   };
 
-  const editExistingPost = async (e) => {
-    e.preventDefault();
 
-    if (!postToEdit.title?.trim() || !postToEdit.content?.trim()) {
-      alert("Post must have a title and content.");
-      return;
-    }
+const editExistingPost = async () => {
+  const { title, content } = postToEdit;
+  if (!title.trim() || !content.trim()) {
+    alert("Post must have a title and content.");
+    return;
+  }
 
-    const finalPostData = {
-      ...postToEdit,
-      id: parseInt(post_id)
-    };
+  <button type="button" onClick={editExistingPost}>Save</button>
+
+  const finalPostData = { ...postToEdit, id: parseInt(post_id) };
 
     console.log("Data being sent to manager:", finalPostData);
 
@@ -98,7 +97,7 @@ export const EditPost = () => {
           <input
             type="text"
             name="title"
-            value={postToEdit.title || ""}
+            value={postToEdit.title}
             onChange={handleInputChange}
             required
           />

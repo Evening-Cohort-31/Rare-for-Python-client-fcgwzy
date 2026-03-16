@@ -42,7 +42,6 @@ return (
                         {userPosts.map(post => (
                             <div key={post.post_id} className="box">
                                 <nav className="level">
-                                    {/* Left side: Post Info */}
                                     <div className="level-left">
                                         <div className="level-item">
                                             <div>
@@ -64,8 +63,6 @@ return (
                                             </div>
                                         </div>
                                     </div>
-
-                                    {/* Right side: Delete Action */}
                                     <div className="level-right">
                                         <div className="level-item">
                                             <button 
