@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { getAllCommentsForPost } from "../../managers/CommentManager"
 import { useParams } from "react-router-dom";
 import { EditButton } from "../buttons/editButton.jsx"
