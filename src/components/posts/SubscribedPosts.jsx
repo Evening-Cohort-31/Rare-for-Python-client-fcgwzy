@@ -10,6 +10,22 @@ export const SubscribedPosts = ({ token }) => {
         getSubscribedPosts(token).then(setSubscribedPosts)
     }, [token])
 
+    const formatDate = (dateString) => {
+    if (!dateString) return "";
+
+    // The .replace ensures older browsers handle the string correctly
+    const date = new Date(dateString.replace(/-/g, '\/'));
+
+    return date.toLocaleString("en-US", {
+        month: 'numeric',
+        day: 'numeric',
+        year: 'numeric',
+        hour: 'numeric',
+        minute: '2-digit',
+        hour12: true // Ensures AM/PM format
+    });
+};
+
 return (
         <section className="section">
             <div className="container">
@@ -36,7 +52,7 @@ return (
                                                 </strong>
                                                 <br />
                                                 <small className="has-text-grey">
-                                                    @{post.username} — {post.publication_date}
+                                                    @{post.username} — {formatDate(post.publication_date)}
                                                 </small>
                                             </p>
                                         </div>
