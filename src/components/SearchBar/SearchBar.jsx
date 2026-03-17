@@ -13,6 +13,7 @@ export const SearchBar = ({ onSearch }) => {
         <div className="field mb-4">
             <div className="control">
             <input
+                className="input is-fullwidth is-small"
                 type="text"
                 placeholder="Search posts by title or tag..."
                 value={query}
