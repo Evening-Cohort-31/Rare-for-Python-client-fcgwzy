@@ -18,7 +18,7 @@ export const createPost = (postObject) => {
         headers: {
             "Content-Type": "application/json",
             "Accept": "application/json",
-            "Authorization": `Token ${localStorage.getItem("token")}`
+            "Authorization": `Token ${localStorage.getItem("auth_token")}`
         },
         body: JSON.stringify(postObject)
     })
