@@ -10,7 +10,8 @@ export const SearchBar = ({ onSearch }) => {
     }
 
     return (
-        <div>
+        <div className="field mb-4">
+            <div className="control">
             <input
                 type="text"
                 placeholder="Search posts by title or tag..."
@@ -18,6 +19,7 @@ export const SearchBar = ({ onSearch }) => {
                 onChange={(event) => setQuery(event.target.value)}
                 onKeyDown={handleKeyDown}
             />
+            </div>
         </div>
     )
 }

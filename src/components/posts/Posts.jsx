@@ -118,7 +118,7 @@ export const PostDetails = () => {
           {isAuthor ? (
             <div className="buttons mt-5">
               <button
-                className="button is-link is-outlined"
+                className="button is-primary is-small mr-2"
                 onClick={() => navigate(`/posts/${post_id}/manage-tags`)}
               >
                 Manage Tags

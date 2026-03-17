@@ -153,7 +153,7 @@ export const PostForm = ({ token }) => {
                         
                         <div className="field mt-5">
                             <div className="control">
-                                <button className="button is-link is-fullwidth" type="submit">
+                                <button className="button is-success is-fullwidth" type="submit">
                                     Save
                                 </button>
                             </div>
