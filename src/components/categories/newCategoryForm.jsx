@@ -35,19 +35,32 @@ export const CategoryForm = () => {
   }
 
 
-  return (
-    <form className="category-add-form" onSubmit={handleSubmit}>
-      <input
-        className="category-input"
-        type="text"
-        name="label"
-        value={newCategory.label}
-        placeholder="NewCategory"
-        onChange={handleInputChange}
-      />
-      <button type="submit" className="category-input-submit">
-        Add
-      </button>
-    </form>
+return (
+    <div className="box">
+      <h2 className="title is-4">Create Category</h2>
+      <form onSubmit={handleSubmit}>
+        <div className="field">
+          <label className="label">Category Name</label>
+          <div className="control">
+            <input
+              className="input"
+              type="text"
+              name="label"
+              value={newCategory.label}
+              placeholder="e.g. Technology"
+              onChange={handleInputChange}
+            />
+          </div>
+        </div>
+
+        <div className="field">
+          <div className="control">
+            <button type="submit" className="button is-primary">
+              Add Category
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
   );
 };
