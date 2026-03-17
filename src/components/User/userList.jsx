@@ -1,3 +1,5 @@
+import "./MyProfile.css"
+
 import { useEffect, useState } from "react";
 import { getAllUsers, updateUser } from "../../managers/userManager";
 import { useNavigate } from "react-router-dom";
@@ -36,35 +38,32 @@ export const UserList = ({ token }) => {
       `Are you sure you want to ${action} this user's profile?`,
     );
 
-    if (!confirmed) return
+    if (!confirmed) return;
 
-    const updatedUser = { ...user, active: user.active ? 0 : 1}
-    
+    const updatedUser = { ...user, active: user.active ? 0 : 1 };
+
     try {
-      const res = await updateUser(userId, updatedUser)
-      
-      let data = {}
-      try {
-        data = await res.json()
-      } catch {
+      const res = await updateUser(userId, updatedUser);
 
-      }
+      let data = {};
+      try {
+        data = await res.json();
+      } catch {}
 
       if (data.pending) {
-        alert(data.message)
+        alert(data.message);
       } else if (data.error) {
-        alert(data.error)
+        alert(data.error);
       } else {
-        if (data.message){
-          alert(data.message)
+        if (data.message) {
+          alert(data.message);
         }
-        getAndSetUsers()
+        getAndSetUsers();
       }
     } catch (err) {
-      alert(err.message)
+      alert(err.message);
     }
-  }
-  
+  };
 
   return (
     <div className="my-profile-container">
@@ -76,18 +75,21 @@ export const UserList = ({ token }) => {
         <div className="columns is-multiline">
           {users.map((user) => (
             <div key={user.id} className="column is-one-third">
-              <div className={`card ${!user.active ? "has-background-light" : ""}`}>
-
+              <div
+                className={`card ${!user.active ? "has-background-light" : ""}`}
+              >
                 {/* Card Header */}
                 <div className="card-header">
                   <p
                     className="card-header-title"
                     style={{ cursor: "pointer" }}
-                    onClick={() => navigate(`/users/${user.id}`)}
+                    // onClick={() => navigate(`/users/${user.id}`)}
                   >
                     {user.username}
                   </p>
-                  <span className={`tag mt-3 mr-3 is-rounded ${user.is_admin ? "is-success" : "is-info"}`}>
+                  <span
+                    className={`tag mt-3 mr-3 is-rounded ${user.is_admin ? "is-success" : "is-info"}`}
+                  >
                     {user.is_admin ? "Admin" : "Author"}
                   </span>
                 </div>
@@ -96,16 +98,19 @@ export const UserList = ({ token }) => {
                 <div
                   className="card-content has-text-centered"
                   style={{ cursor: "pointer" }}
-                  onClick={() => navigate(`/users/${user.id}`)}
                 >
                   <img
-                    src={user.profile_image_url || "https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png"}
+                    src={
+                      user.profile_image_url ||
+                      "https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png"
+                    }
                     alt={`${user.first_name} ${user.last_name}`}
                     className="card-avatar"
                   />
                   <p>
-                    <strong>Name: </strong>
-                    {user.first_name} {user.last_name}
+                    <span onClick={() => navigate(`/users/${user.id}`)}>
+                      <strong className="is-size-5">{user.first_name} {user.last_name}</strong>
+                    </span>
                   </p>
                   <p>
                     <strong>Status: </strong>
@@ -128,7 +133,6 @@ export const UserList = ({ token }) => {
                     {user.active ? "Deactivate" : "Activate"}
                   </button>
                 </div>
-
               </div>
             </div>
           ))}

@@ -13,7 +13,7 @@ export const EditButton = ({ route, disabled}) => {
   }
   return (
     <>
-        <button className="edit-btn"
+        <button className="button is-small is-link is-outlined"
         onClick={handleEdit}
         disabled={disabled}
         >Edit</button>

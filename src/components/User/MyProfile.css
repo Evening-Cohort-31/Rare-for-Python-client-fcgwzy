@@ -13,6 +13,25 @@
   --dark-sand: #a28089;
 }
 
+.card-footer-item.button {
+    padding: 0.5rem;
+    font-size: 0.75rem;
+    height: auto;
+    line-height: 1.2;
+    margin: 5px; 
+}
+
+.card-footer {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 15px;
+    border-top: 1px solid #ededed;
+}
+
+.card-footer-item.button {
+    min-width: 60px;
+}
 .button.is-primary {
   background-color: #51e2f5 !important;
   border-color: #51e2f5 !important;
@@ -66,3 +85,4 @@
   border-color: #a28089 !important;
   color: #fff !important;
 }
+
