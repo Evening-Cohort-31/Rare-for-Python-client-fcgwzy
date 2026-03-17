@@ -49,29 +49,42 @@ export const CommentForm = ({ post_id, refreshComments }) => {
     })
   }
 
-
   return (
-    <form className="comment-add-form" onSubmit={handleSubmit}>
-      <input
-        className="comment-subject-input"
-        type="text"
-        name="subject" // Match the state key
-        value={newComment.subject}
-        placeholder="Subject"
-        onChange={handleInputChange}
-        required
-      />
-      <input
-        className="comment-input"
-        type="text"
-        name="content"
-        value={newComment.content}
-        placeholder="Write a comment"
-        onChange={handleInputChange}
-      />
-      <button type="submit" className="comment-input-submit">
-        Add Comment
-      </button>
+    <form onSubmit={handleSubmit}>
+      <div className="field">
+        <div className="control">
+          <input
+            className="input"
+            type="text"
+            name="subject"
+            value={newComment.subject}
+            placeholder="Subject"
+            onChange={handleInputChange}
+            required
+          />
+        </div>
+      </div>
+
+      <div className="field">
+        <div className="control">
+          <input
+            className="input"
+            type="text"
+            name="content"
+            value={newComment.content}
+            placeholder="Write a comment"
+            onChange={handleInputChange}
+          />
+        </div>
+      </div>
+
+      <div className="field">
+        <div className="control">
+          <button className="button is-primary is-small mr-2" type="submit">
+            Add Comment
+          </button>
+        </div>
+      </div>
     </form>
   );
 };
