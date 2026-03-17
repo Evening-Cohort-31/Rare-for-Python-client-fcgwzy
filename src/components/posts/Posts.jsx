@@ -127,14 +127,15 @@ export const PostDetails = () => {
             </div>
           ) : (
             <>
-              <div className="notification is-light mt-5">Leave a Comment!</div>
-              <ReactionBar post_id={post_id}/>
+              <ReactionBar post_id={post_id} />
             </>
           )}
         </div>
 
         <div className="box has-background-white-ter">
           <h3 className="title is-4">Comments</h3>
+          <div className="notification is-light mt-5">Leave a Comment!</div>
+
           <CommentForm post_id={post_id} refreshComments={getAndSetComments} />
           <hr />
           <CommentList

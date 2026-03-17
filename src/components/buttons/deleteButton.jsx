@@ -2,7 +2,7 @@ import "./button.css";
 
 export const DeleteButton = ({ onClick }) => {
   return (
-      <button className="delete-btn round-btn" onClick={onClick}>
+      <button className="button is-small is-danger is-outlined" onClick={onClick}>
         Delete
       </button>
     )
