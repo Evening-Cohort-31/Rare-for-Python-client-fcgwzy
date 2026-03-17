@@ -4,6 +4,8 @@ import {
   deleteReaction,
   getAllReactions,
 } from "../../managers/ReactionManager";
+import { EditButton } from "../buttons/editButton";
+import { DeleteButton } from "../buttons/deleteButton";
 
 export const ReactionList = () => {
   const navigate = useNavigate();
@@ -38,48 +40,63 @@ export const ReactionList = () => {
   };
 
   return (
-    <div className="reactions-container">
-      <h2 className="title">Reactions</h2>
-      <div className="reactions-list">
-        {reactions.map((reaction) => {
-          return (
-            <section key={`reaction--${reaction.id}`} className="reaction box mb-3">
-              <div className="is-flex is-align-items-center">
-                {/* 1. Display the Emoji and Label once per reaction */}
-                <div className="mr-4" style={{ fontSize: "2rem" }}>
-                  {reaction.emoji}
-                </div>
-                <div className="reaction-label title is-5 mb-0">
-                  {reaction.label}
-                </div>
+    <section className="section">
+      <div className="container">
+        {/* Header Level - Matches CategoryList */}
+        <div className="level">
+          <div className="level-left">
+            <h2 className="title">Reactions</h2>
+          </div>
+          <div className="level-right">
+            <button onClick={reactionForm} className="button is-info">
+              Create Reaction
+            </button>
+          </div>
+        </div>
 
-                {/* 2. Display Admin Buttons once per reaction */}
-                <div className="ml-auto">
+        {/* Table Container */}
+        <div className="box">
+          <table className="table is-fullwidth is-striped is-hoverable">
+            <thead>
+              <tr>
+                <th>Reactions</th>
+                {isAdmin && <th className="has-text-right">Actions</th>}
+              </tr>
+            </thead>
+            <tbody>
+              {reactions.map((reaction) => (
+                <tr key={`reaction--${reaction.id}`}>
+                  <td className="is-vcentered">
+                    <div className="is-flex is-align-items-center">
+                      <span className="mr-3" style={{ fontSize: "1.5rem" }}>
+                        {reaction.emoji}
+                      </span>
+                      <span className="is-size-5">{reaction.label}</span>
+                    </div>
+                  </td>
+                  
                   {isAdmin && (
-                    <>
-                      <button 
-                        className="button is-small is-warning mr-2"
-                        onClick={() => handleEditReaction(reaction.id)}
-                      >
-                        Edit
-                      </button>
-                      <button 
-                        className="button is-small is-danger"
-                        onClick={() => handleDelete(reaction.id)}
-                      >
-                        Delete
-                      </button>
-                    </>
+                    <td className="has-text-right">
+                      <div className="buttons is-right">
+                        <EditButton
+                          onClick={() => navigate(`/edit-reaction/${reaction.id}`)}
+                        />
+                        <DeleteButton
+                          onClick={() => handleDelete(reaction.id, reaction.label)}
+                        />
+                      </div>
+                    </td>
                   )}
-                </div>
-              </div>
-            </section>
-          );
-        })}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          
+          {reactions.length === 0 && (
+            <p className="has-text-centered">No reactions found.</p>
+          )}
+        </div>
       </div>
-      <button className="button is-primary mt-4" onClick={reactionForm}>
-        Create New Reaction
-      </button>
-    </div>
+    </section>
   );
 };
