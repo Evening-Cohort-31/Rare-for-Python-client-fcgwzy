@@ -149,9 +149,10 @@ export const PostDetails = () => {
         </div>
 
         <div className="box has-background-white-ter">
-          <h3 className="title is-4">Comments</h3>
-          <div className="notification is-light mt-5">Leave a Comment!</div>
-
+          <h3 className="title is-3">Comments</h3>
+          <p className="is-size-6 mt-5 mb-5 ml-1">
+            Leave a Comment!
+          </p>
           <CommentForm post_id={post_id} refreshComments={getAndSetComments} />
           <hr />
           <CommentList
