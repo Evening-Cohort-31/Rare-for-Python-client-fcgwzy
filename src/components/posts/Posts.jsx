@@ -35,6 +35,22 @@ export const PostDetails = () => {
     getAndSetComments();
   }, [post_id]);
 
+  const formatDate = (dateString) => {
+    if (!dateString) return "";
+
+    // The .replace ensures older browsers handle the string correctly
+    const date = new Date(dateString.replace(/-/g, '\/'));
+
+    return date.toLocaleString("en-US", {
+        month: 'numeric',
+        day: 'numeric',
+        year: 'numeric',
+        hour: 'numeric',
+        minute: '2-digit',
+        hour12: true // 
+    });
+};
+
   const loggedInId = Number(currentUser);
   const authorId = Number(post?.user_id);
 
@@ -85,7 +101,7 @@ export const PostDetails = () => {
               </div>
               <div className="level-item">
                 <span className="has-text-grey mr-1">Date:</span>
-                <span>{post.publication_date}</span>
+                <span>{formatDate(post.publication_date)}</span>
               </div>
             </div>
           </div>
